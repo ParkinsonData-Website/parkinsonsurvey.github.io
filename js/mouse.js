@@ -391,10 +391,82 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
     await sleep(2);
   }
 
+  document.getElementById('headertitle').textContent = "Done!";
+  await sleep(1000);
+  document.getElementById('headertitle').textContent = "Mouse Test 4: Click on the Red Dots as they appear on screen";
+  await sleep(1000);
+  // Game variables
+let gameData = [];
+let dotCount = 10; // Number of dots to display
+let dotInterval = 500; // Interval between dots in milliseconds
+
+// Function to generate a random position within the canvas
+function getRandomPosition() {
+  let x = Math.random() * (canvas.width - 20) + 10; // 10 is margin
+  let y = Math.random() * (canvas.height - 20) + 10; // 10 is margin
+  return { x, y };
+}
+
+// Function to display a dot and record data
+function displayDot() {
+  if (dotCount === 0) {
+    endGame();
+    return;
+  }
+
+  let position = getRandomPosition();
+  let appearanceTime = new Date().getTime();
+
+  // Draw the dot
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous dot
+  ctx.beginPath();
+  ctx.arc(position.x, position.y, 40, 0, 2 * Math.PI); // 10 is dot radius
+  ctx.fillStyle = 'red';
+  ctx.fill();
+
+  // Event listener for click
+  canvas.onclick = function(event) {
+    let clickTime = new Date().getTime();
+    let reactionTime = clickTime - appearanceTime;
+    let distance = Math.sqrt(Math.pow(event.clientX - position.x, 2) + Math.pow(event.clientY - position.y, 2));
+
+    // Check if the dot was clicked (within a certain radius)
+    if (distance <= 40) { // 10 is dot radius
+      gameData.push({ reactionTime });
+      dotCount--;
+      setTimeout(displayDot, dotInterval); // Display next dot after interval
+    }
+  };
+}
+
+// Function to end the game and send data
+function endGame() {
+  canvas.onclick = null; // Remove event listener
+  sendGameData();
   // once user has finished this level, send the data
   document.getElementById('headertitle').textContent = "Sending data...";
   senddata();
+}
+
+// Function to send game data to Firebase
+function sendGameData() {
+  let userid = sessionStorage.getItem('userid');
+  let data = { user: userid, gameData };
+
+  db.collection("testData").doc(userid).set({ gameData: data }, { merge: true })
+    .then(() => {
+      console.log("Game data sent for User ID: ", userid);
+    })
+    .catch((error) => {
+      console.error("Error sending game data: ", error);
+    });
+}
+
+// Start the game
+displayDot();
+
 })();
+
 
 
 

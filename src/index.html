@@ -20,14 +20,27 @@
         <li><a id='header3' style="cursor: pointer;" href="../src/about.html">About</a></li>
       </ul> 
     </nav>
-
+    <div id="touchscreenPopup" style="display: none; position: fixed; top: 20%; left: 50%; transform: translate(-50%, -50%); background-color: red; color: white; padding: 20px; z-index: 10; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+      <p>You are using a touchscreen-supported device, but this test requires a mouse. Please proceed if you have a mouse available for use with your device.</p>
+      <button onclick="closePopup()" style="background-color: white; color: black; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">OK</button>
+    </div>
     <script>
       if (localStorage.getItem('pdcompleted') == 'true'){
         window.location.href = '../src/index.html';
       }
       console.log("came here")
+     // Function to close the popup
+     function closePopup() {
+        document.getElementById('touchscreenPopup').style.display = 'none';
+      }
+
+      // Detect touchscreen device
+      if (navigator.maxTouchPoints > 0) {
+        var popup = document.getElementById('touchscreenPopup');
+        popup.style.display = 'block';
+      }
     </script>
-      
+
     <div style="text-align: center; z-index: 5;">
       <h1 id='headertitle' style="font-size: 300%; margin-top: 75px;">Welcome to Parkinson's Test Experiment!</h1>
     </div>

@@ -28,7 +28,10 @@ var kpressed = [[],[],[]];
 var kexpected = [[],[],[]];
 var wrongclicks = [0,0,0];
 var rightclicks = [0,0,0];
-
+var pDominantTimestamps = [];
+var qDominantTimestamps = [];
+var pNonDominantTimestamps = [];
+var qNonDominantTimestamps = [];
 
 // if the user has already done the text, then redirect them to a landing page
 if (localStorage.getItem('pdcompleted') == 'true'){
@@ -107,7 +110,11 @@ let userid = sessionStorage.getItem('userid');
     },
     falseClicks: falseclick,
     rightClicks: rightclicks,
-    wrongClicks: wrongclicks
+    wrongClicks: wrongclicks,
+    pDominantTimes: stringize(pDominantTimestamps),
+    qDominantTimes: stringize(qDominantTimestamps),
+    pNonDominantTimes: stringize(pNonDominantTimestamps),
+    qNonDominantTimes: stringize(qNonDominantTimestamps)
   };
 
   // Send data to Firestore
@@ -167,6 +174,59 @@ var eachround = 10; // number of prompts per round
 // get a random letter to use
 var subjletter = letters.substring(rand,rand+1);
 
+async function additionalLevel() {
+var  rounds  = 3;
+  // Instructions for the user
+  let instructions = [
+    { key: 'p', hand: 'dominant' },
+    { key: 'q', hand: 'dominant' },
+    { key: 'p', hand: 'non-dominant' },
+    { key: 'q', hand: 'non-dominant' }
+  ];
+
+  for (let instruction of instructions) {
+    document.getElementById('headertitle').textContent = `Test 4: Press ${instruction.key.toUpperCase()} with your ${instruction.hand} hand when the square appears`;
+    await sleep(1000);
+
+    for (let i = 0; i < rounds; i++) {
+      await sleep(Math.random() * 3500 + 1);
+      drawrect();
+      squareactive = true;
+      let starttime = new Date();
+
+      while (!pressedit) {
+        await sleep(2);
+      }
+
+      pressedit = false;
+      eraserect();
+
+      let endtime = new Date();
+      let elapsedtime = endtime - starttime;
+
+      if (instruction.key === 'p' && instruction.hand === 'dominant') {
+        pDominantTimestamps.push(elapsedtime);
+      } else if (instruction.key === 'q' && instruction.hand === 'dominant') {
+        qDominantTimestamps.push(elapsedtime);
+      } else if (instruction.key === 'p' && instruction.hand === 'non-dominant') {
+        pNonDominantTimestamps.push(elapsedtime);
+      } else if (instruction.key === 'q' && instruction.hand === 'non-dominant') {
+        qNonDominantTimestamps.push(elapsedtime);
+      }
+    }
+  }
+
+  // Display average times
+  document.getElementById('statsdisp').textContent = "Average Times:";
+  document.getElementById('statsdisp1').textContent = "P (Dominant): " + avg(pDominantTimestamps) + " ms";
+  document.getElementById('statsdisp2').textContent = "Q (Dominant): " + avg(qDominantTimestamps) + " ms";
+  document.getElementById('statsdisp3').textContent = "P (Non-Dominant): " + avg(pNonDominantTimestamps) + " ms";
+  document.getElementById('statsdisp4').textContent = "Q (Non-Dominant): " + avg(qNonDominantTimestamps) + " ms";
+  // Prepare and send data
+  document.getElementById('headertitle').textContent = "Sending data...";
+  senddata();
+}
+
 
 (async () => {
 
@@ -174,7 +234,7 @@ var subjletter = letters.substring(rand,rand+1);
 
   // set message
   document.getElementById('headertitle').textContent = "Test 1: Press "+subjletter+" when the square appears";
-  
+  await sleep(1000);
   // repeat the test until all the trials are finished
   let u = 0;
   let passedtrials = 0;
@@ -382,9 +442,17 @@ var subjletter = letters.substring(rand,rand+1);
   // display stats for the last round 
   dispstats(2);
 
-  // update display and send the data
-  document.getElementById('headertitle').textContent = "Sending data...";
-  senddata();
+  document.getElementById('headertitle').textContent = "Press any key to proceed to level 4";
+
+  // wait until the user presses any key to continue
+  squareactive = true; // for temp
+  while (!pressedit){
+    await sleep(2);
+  }
+  squareactive = false;
+  pressedit = false;
+  hidestats();
+  await additionalLevel();
 })();
 
 
