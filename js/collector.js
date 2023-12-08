@@ -17,6 +17,31 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
+// Detects the device type
+function detectDeviceType() {
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+      return 'iOS Device';
+  }
+  if (/android/i.test(userAgent)) {
+      return 'Android Device';
+  }
+  if (/windows phone/i.test(userAgent)) {
+      return 'Windows Phone';
+  }
+  if (/Macintosh|MacIntel|MacPPC|Mac68K/.test(userAgent)) {
+      return 'Mac Desktop';
+  }
+  if (/Win32|Win64|Windows|WinCE/.test(userAgent)) {
+      return 'Windows Desktop';
+  }
+  if (/Linux/.test(userAgent)) {
+      return 'Linux Desktop';
+  }
+  return 'Desktop'; // Default to desktop if no match
+}
+
 // if the user has already taken test, redirect to landing page
 if (localStorage.getItem('pdcompleted') == 'true'){
   window.location.href = '../src/done.html';
@@ -99,13 +124,15 @@ async function senddata() {
 let userid = new Date().getTime().toString();
 sessionStorage.setItem('userid', userid);
 theid = userid;
+let deviceType = detectDeviceType(); 
 
   let data = {
     user: userid,
     age: document.getElementById('age').value,
     gender: document.getElementById('gender').value,
     race: document.getElementById('race').value,
-    status: pd_status
+    status: pd_status,
+    deviceType: deviceType
   };
 
   // Use the user ID as the document ID
