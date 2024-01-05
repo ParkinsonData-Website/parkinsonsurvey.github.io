@@ -2,29 +2,82 @@
 <html>
   <head>
     <meta charset='utf-8'>
-    <meta name='og:viewport' content='width=device-width,initial-scale=1'>
-    <meta name="og:description" content="confetti">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>PD tests - Keyboard tests</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/utility.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/x-icon" href="pacman-favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Finlandica&display=swap" rel="stylesheet"> 
-  </head>
+    <link href="https://fonts.googleapis.com/css2?family=Finlandica&display=swap" rel="stylesheet">
+    <style>
+      #statsModal .modal-content {
+          background-color: #f8f9fa; /* Light background color */
+          border-radius: 10px; /* Rounded corners */
+          box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Box shadow for 3D effect */
+      }
+      #statsModal .modal-header {
+          background-color: #007bff; /* Header background color */
+          color: white; /* Text color for the header */
+          border-top-left-radius: 10px; /* Rounded top-left corner */
+          border-top-right-radius: 10px; /* Rounded top-right corner */
+      }
+      #statsModal .modal-body p {
+          font-weight: bold; /* Bold text for modal body */
+          color: #333; /* Dark text color for readability */
+          font-size: 1.5em; /* Slightly larger text */
+      }
+      #statsModal .modal-footer {
+          background-color: #f8f9fa; /* Footer background color */
+      }
+  </style>
+</head>
   <body>
-      
-    <div style="text-align: center; z-index: 5;">
-      <h1 id='headertitle' style="font-size: 300%;">Level 1</h1>
-    </div>
+    <div id="instruction-overlay">
+      <div id="instruction-content">
+          <h2>Instructions</h2>
+          <p>This section contains a keyboard test which comprises of 4 levels.</p>
+          <img src="../assets/keyboardtest.PNG" alt="Instructions Image" class="img-fluid">
+          <ul>
+            <li>For Level 1, 2, and 3, you will be asked to click on different letters on the keyboard when a square appears on the screen.</li>
+            <li>For Level 4, you will be asked to press 'P' and 'Q', the two furthest keys on the keyboard, using your dominant and non-dominant hands.</li>
+          </ul>
+          <button class="btn btn-primary" onclick="document.getElementById('instruction-overlay').style.display='none'">Start</button>
+      </div>
+  </div>
+  
 
-    <div style="text-align: center; z-index: 5;">
-      <h1 id='statsdisp' style="font-size: 130%;"></h1>
-      <h1 id='statsdisp1' style="font-size: 130%;"></h1>
-      <h1 id='statsdisp2' style="font-size: 130%;"></h1>
-      <h1 id='statsdisp3' style="font-size: 130%;"></h1>
-      <h1 id='statsdisp4' style="font-size: 130%;"></h1>
+  <!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid justify-content-center">
+            <span class="nav-item nav-link h1 text-white" id="navbarTextContent">Ready for the test</span>
+
+      </div>
+</nav>
+
+  <div class="modal fade" id="statsModal" tabindex="-1" role="dialog" aria-labelledby="statsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="statsModalLabel">Test Statistics</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id='statsdisp'></p>
+                <p id='statsdisp1'></p>
+                <p id='statsdisp2'></p>
+                <p id='statsdisp3'></p>
+                <p id='statsdisp4'></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
+</div>
 
     <div id='canvas-container' style="float: left; position: absolute; z-index: 1; top: 0px; left: 0px;">
       <canvas class="myCanvas">
@@ -32,6 +85,8 @@
         <canvas id="the-canvas" width="320" height="240" style="position:relative; right:300px;"></canvas>
       </canvas>
     </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
     <script src="../js/keyboard.js"></script>

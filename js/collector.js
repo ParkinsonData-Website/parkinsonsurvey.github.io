@@ -108,6 +108,7 @@ function startverify(){
   } else {
     document.getElementById('pdd').textContent = "PD Status: Does not have PD";
   }
+  document.getElementById('dominantHandDisplay').textContent = "Dominant Hand: " + dominantHand;
 }
 
 // close the verification dialogue if user wants to change anything
@@ -119,12 +120,23 @@ function closeverify(){
   verify.style.display = 'none';
 }
 
-// send data to the database
+// Global variable to store the dominant hand
+let dominantHand = "Right";
+
+// Function to store the dominant hand selection
+function storeHand(hand) {
+  dominantHand = hand;
+  document.getElementById('leftHandButton').classList.remove('btn-success');
+  document.getElementById('rightHandButton').classList.remove('btn-success');
+  document.getElementById(hand + 'HandButton').classList.add('btn-success');
+}
+
+// Modify the senddata function to include the dominant hand
 async function senddata() {
-let userid = new Date().getTime().toString();
-sessionStorage.setItem('userid', userid);
-theid = userid;
-let deviceType = detectDeviceType(); 
+  let userid = new Date().getTime().toString();
+  sessionStorage.setItem('userid', userid);
+  theid = userid;
+  let deviceType = detectDeviceType(); 
 
   let data = {
     user: userid,
@@ -132,7 +144,8 @@ let deviceType = detectDeviceType();
     gender: document.getElementById('gender').value,
     race: document.getElementById('race').value,
     status: pd_status,
-    deviceType: deviceType
+    deviceType: deviceType,
+    dominantHand: dominantHand // Add dominant hand to the data
   };
 
   // Use the user ID as the document ID

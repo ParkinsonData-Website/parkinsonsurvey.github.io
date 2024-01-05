@@ -24,7 +24,7 @@ function stringize(e){
 
 // if the user has already completed the test then redirect them to a landing page
 if (localStorage.getItem('pdcompleted') == 'true'){
-  window.location.href = 'src/done.html';
+  window.location.href = '../src/done.html';
 }
 
 // define some stuff we need
@@ -60,7 +60,7 @@ db.collection("testData").doc(userid).set(data, { merge: true })
   .then(() => {
       console.log("Document updated for User ID: ", userid);
       // Redirect to the keyboard test after successful data submission
-      document.getElementById('headertitle').textContent = "Data sent! Launching keyboard tests...";
+      document.getElementById('navbarTextContent').textContent = "Data sent! Launching keyboard tests...";
       window.open('../src/keyboard.html?' + userid, '_self');
   })
   .catch((error) => {
@@ -197,9 +197,9 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
   }
 
   // update the displays
-  document.getElementById('headertitle').textContent = "Done!";
+  document.getElementById('navbarTextContent').textContent = "Done!";
   await sleep(1000);
-  document.getElementById('headertitle').textContent = "Mouse Test 2: hover over the object in a rightward direction";
+  document.getElementById('navbarTextContent').textContent = "Mouse Test 2: hover over the object in a rightward direction";
 
 
   // reset stuff
@@ -286,9 +286,9 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
   }
 
   // update the display
-  document.getElementById('headertitle').textContent = "Done!";
+  document.getElementById('navbarTextContent').textContent = "Done!";
   await sleep(1000);
-  document.getElementById('headertitle').textContent = "Mouse Test 3: hover over the object in a clockwise direction";
+  document.getElementById('navbarTextContent').textContent = "Mouse Test 3: hover over the object in a clockwise direction";
 
   // reset stuff
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -391,9 +391,9 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
     await sleep(2);
   }
 
-  document.getElementById('headertitle').textContent = "Done!";
+  document.getElementById('navbarTextContent').textContent = "Done!";
   await sleep(1000);
-  document.getElementById('headertitle').textContent = "Mouse Test 4: Click on the Red Dots as they appear on screen";
+  document.getElementById('navbarTextContent').textContent = "Mouse Test 4: Click on the Red Dots as they appear on screen";
   await sleep(1000);
   // Game variables
 let gameData = [];
@@ -402,8 +402,8 @@ let dotInterval = 500; // Interval between dots in milliseconds
 
 // Function to generate a random position within the canvas
 function getRandomPosition() {
-  let x = Math.random() * (canvas.width - 20) + 10; // 10 is margin
-  let y = Math.random() * (canvas.height - 20) + 10; // 10 is margin
+  let x = Math.random() * (canvas.width - 20) + 40; // 10 is margin
+  let y = Math.random() * (canvas.height - 20) + 40; // 10 is margin
   return { x, y };
 }
 
@@ -444,7 +444,7 @@ function endGame() {
   canvas.onclick = null; // Remove event listener
   sendGameData();
   // once user has finished this level, send the data
-  document.getElementById('headertitle').textContent = "Sending data...";
+  document.getElementById('navbarTextContent').textContent = "Sending data...";
   senddata();
 }
 

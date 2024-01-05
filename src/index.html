@@ -10,15 +10,30 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/x-icon" href="pacman-favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Finlandica&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Finlandica&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <nav id="nav1">
-      <ul class="nav-items" id="nav">
-        <li><a id='header1'>PD tests</a></li>
-        <li><a id='header2' style="cursor: pointer;" href="../src/index.html">Home</a></li>
-        <li><a id='header3' style="cursor: pointer;" href="../src/about.html">About</a></li>
-      </ul> 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="#">Parkinson's Survey</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="../src/index.html">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../src/about.html">About</a>
+          </li>
+        </ul>
+      </div>
     </nav>
     <div id="touchscreenPopup" style="display: none; position: fixed; top: 20%; left: 50%; transform: translate(-50%, -50%); background-color: red; color: white; padding: 20px; z-index: 10; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
       <p>You are using a touchscreen-supported device, but this test requires a mouse. Please proceed if you have a mouse available for use with your device.</p>
@@ -40,17 +55,45 @@
         popup.style.display = 'block';
       }
     </script>
-
-    <div style="text-align: center; z-index: 5;">
-      <h1 id='headertitle' style="font-size: 300%; margin-top: 75px;">Welcome to Parkinson's Test Experiment!</h1>
+    
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <br>
+        <br>
+        <h1>Welcome to Parkinson's Test Experiment!</h1>
+        <br>
+        <h4>This Website is intended to collect data for a reasearch work titled "Fair and Accessible Parkinson’s Disease Screening using a Machine Learning-Powered Web
+          Platform". The end goal of the work is to design a website which can detect Parkinson's in individuals effectively and with fairness. </h5>
+      </div>
     </div>
-
-    <div style="text-align: center; z-index: 5; padding-bottom: 10px;">
-      <img src="../assets/logo.png" alt="Uh manoa logo" width="20%">
+    <div class="row">
+      <div class="col text-center">
+        <img src="../assets/logo.png" alt="Uh manoa logo" class="img-fluid" width="35%">
+      </div>
     </div>
-
-    <div style="text-align: center; z-index: 5;">
-      <a href="../src/collectinfo.html"><button class="regbutton" onclick="">Start</button></a>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <br>
+        <h3>Research Conducted By:</h3>
+        <img src="../assets/LabLogo.png" alt="Research Image" class="img-fluid">
+      </div>
+      <div class="col-md-6 text-center">
+        <br>
+        <h3>Funded By:</h3>
+        <img src="../assets/aim_ahead_logo.png" alt="Funding Image" class="img-fluid">
+      </div>
     </div>
+    <div class="row">
+      <br>
+      <br>
+      <div class="col text-center">
+        <br><h5>This Survey will ask for your Gender, Ethnicity, Age, Parkinson’s Status and Dominant Hand. If you are comfortable with providing these informations, Please click on the "Start Survey" button below to continue</h5> <br>
+        <a href="../src/collectinfo.html" class="btn btn-success btn-lg">Start The Survey</a>
+      </div>
+    </div>    
+    </div>
+  </div>
+
   </body>
 </html>

@@ -35,7 +35,7 @@ var qNonDominantTimestamps = [];
 
 // if the user has already done the text, then redirect them to a landing page
 if (localStorage.getItem('pdcompleted') == 'true'){
-  window.location.href = 'src/done.html';
+  window.location.href = '../src/done.html';
 }
 
 
@@ -122,7 +122,7 @@ let userid = sessionStorage.getItem('userid');
   .then(() => {
       console.log("Document updated for User ID: ", userid);
       // Update display with a thank you message
-      document.getElementById('headertitle').textContent = "All done! Thanks for participating in this test! You can now close this tab.";
+      //document.getElementById('navbarTextContent').textContent = "All done! Thanks for participating in this test! You can now close this tab.";
       // Update the localstorage to mark that this user has completed the test
       localStorage.setItem('pdcompleted','true');
     })
@@ -134,32 +134,42 @@ let userid = sessionStorage.getItem('userid');
 
 
 // display the stats after each round
-function dispstats(round){
+function dispstats(round) {
   let y = document.getElementById('statsdisp');
   y.textContent = "Results:";
   y = document.getElementById('statsdisp1');
-  y.textContent = "Avg response time: "+avg(timestamps[round])+" ms";
+  y.textContent = "Avg response time: " + avg(timestamps[round]) + " ms";
   y = document.getElementById('statsdisp2');
-  y.textContent = "False clicks: "+falseclick[round];
+  y.textContent = "False clicks: " + falseclick[round];
   y = document.getElementById('statsdisp3');
-  y.textContent = "Correct presses: "+rightclicks[round];
+  y.textContent = "Correct presses: " + rightclicks[round];
   y = document.getElementById('statsdisp4');
-  y.textContent = "Wrong presses: "+wrongclicks[round];
+  y.textContent = "Wrong presses: " + wrongclicks[round];
 
+  // Open the stats modal
+  $('#statsModal').modal('show');
 }
 
 // make the stats disappear
-function hidestats(){
-  let y = document.getElementById('statsdisp');
-  y.textContent = "";
-  y = document.getElementById('statsdisp1');
-  y.textContent = "";
-  y = document.getElementById('statsdisp2');
-  y.textContent = "";
-  y = document.getElementById('statsdisp3');
-  y.textContent = "";
-  y = document.getElementById('statsdisp4');
-  y.textContent = "";
+function hidestats() {
+  $('#statsModal').modal('hide');
+}
+
+function dispstats2() {
+  document.getElementById('statsdisp').textContent = "Average Times:";
+  document.getElementById('statsdisp1').textContent = "P (Dominant): " + avg(pDominantTimestamps) + " ms";
+  document.getElementById('statsdisp2').textContent = "Q (Dominant): " + avg(qDominantTimestamps) + " ms";
+  document.getElementById('statsdisp3').textContent = "P (Non-Dominant): " + avg(pNonDominantTimestamps) + " ms";
+  document.getElementById('statsdisp4').textContent = "Q (Non-Dominant): " + avg(qNonDominantTimestamps) + " ms";
+  // Open the stats modal
+  $('#statsModal').modal('show');
+}
+
+function hidestats2() {
+  $('#statsModal').modal('hide');
+  $('#statsModal').on('hidden.bs.modal', function (e) {
+    window.location.href = '../src/complete.html';
+  });
 }
 
 
@@ -185,7 +195,7 @@ var  rounds  = 3;
   ];
 
   for (let instruction of instructions) {
-    document.getElementById('headertitle').textContent = `Test 4: Press ${instruction.key.toUpperCase()} with your ${instruction.hand} hand when the square appears`;
+    document.getElementById('navbarTextContent').textContent = `Test 4: Press ${instruction.key.toUpperCase()} with your ${instruction.hand} hand when the square appears`;
     await sleep(1000);
 
     for (let i = 0; i < rounds; i++) {
@@ -217,23 +227,26 @@ var  rounds  = 3;
   }
 
   // Display average times
-  document.getElementById('statsdisp').textContent = "Average Times:";
-  document.getElementById('statsdisp1').textContent = "P (Dominant): " + avg(pDominantTimestamps) + " ms";
-  document.getElementById('statsdisp2').textContent = "Q (Dominant): " + avg(qDominantTimestamps) + " ms";
-  document.getElementById('statsdisp3').textContent = "P (Non-Dominant): " + avg(pNonDominantTimestamps) + " ms";
-  document.getElementById('statsdisp4').textContent = "Q (Non-Dominant): " + avg(qNonDominantTimestamps) + " ms";
+  dispstats2();
   // Prepare and send data
-  document.getElementById('headertitle').textContent = "Sending data...";
+  document.getElementById('navbarTextContent').textContent = "Sending data...";
   senddata();
+  hidestats2();
 }
 
 
 (async () => {
 
   // level 1
+  document.getElementById('navbarTextContent').textContent = "Press any key to proceed to Start the Keyboard Test";
 
+  // wait until user presses a key
+  squareactive = true;
+  while (!pressedit){
+    await sleep(2);
+  }
   // set message
-  document.getElementById('headertitle').textContent = "Test 1: Press "+subjletter+" when the square appears";
+  document.getElementById('navbarTextContent').textContent = "Test 1: Press "+subjletter+" when the square appears";
   await sleep(1000);
   // repeat the test until all the trials are finished
   let u = 0;
@@ -283,7 +296,7 @@ var  rounds  = 3;
 
   // display stats and messagewhen they are done with the level
   dispstats(0);
-  document.getElementById('headertitle').textContent = "Press any key to proceed to level 2";
+  document.getElementById('navbarTextContent').textContent = "Press any key to proceed to level 2";
 
   // wait until the user presses any key to continue
   squareactive = true; // for temp
@@ -316,10 +329,10 @@ var  rounds  = 3;
 
     // either display one letter or the other letter based on the random number
     if (rand == 0){
-      document.getElementById('headertitle').textContent = "Test 2: Press "+subjletter1+" when the square appears";
+      document.getElementById('navbarTextContent').textContent = "Test 2: Press "+subjletter1+" when the square appears";
       subjletter = subjletter1;
     } else {
-      document.getElementById('headertitle').textContent = "Test 2: Press "+subjletter2+" when the square appears";
+      document.getElementById('navbarTextContent').textContent = "Test 2: Press "+subjletter2+" when the square appears";
       subjletter = subjletter2;
     }
 
@@ -366,7 +379,7 @@ var  rounds  = 3;
   dispstats(1);
 
   // update text display
-  document.getElementById('headertitle').textContent = "Press any key to proceed to level 3";
+  document.getElementById('navbarTextContent').textContent = "Press any key to proceed to level 3";
 
   // wait until user presses a key
   squareactive = true;
@@ -395,7 +408,7 @@ var  rounds  = 3;
     let subjletter3 = letters.substring(rand,rand+1);
 
     // update display to ask for letter
-    document.getElementById('headertitle').textContent = "Test 3: Press "+subjletter3+" when the square appears";
+    document.getElementById('navbarTextContent').textContent = "Test 3: Press "+subjletter3+" when the square appears";
 
     // wait for a random amount of time
     await sleep(Math.random()*3500+1);
@@ -442,7 +455,7 @@ var  rounds  = 3;
   // display stats for the last round 
   dispstats(2);
 
-  document.getElementById('headertitle').textContent = "Press any key to proceed to level 4";
+  document.getElementById('navbarTextContent').textContent = "Press any key to proceed to level 4";
 
   // wait until the user presses any key to continue
   squareactive = true; // for temp

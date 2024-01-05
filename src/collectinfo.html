@@ -1,61 +1,84 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta name='og:viewport' content='width=device-width,initial-scale=1'>
-    <meta name="og:description" content="PD tests">
-    <title>PD tests - Information collection</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/utility.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/x-icon" href="pacman-favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Finlandica&display=swap" rel="stylesheet"> 
-  </head>
-  <body>
-    <nav id="nav1">
-      <ul class="nav-items" id="nav">
-        <li><a id='header1'>PD tests</a></li>
-        <li><a id='header2' style="cursor: pointer;" href="../src/index.html">Home</a></li>
-        <li><a id='header3' style="cursor: pointer;" href="../src/about.html">About</a></li>
-      </ul> 
-    </nav>
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>    
-    <script src="../js/collector.js"></script>
-      
-    <div style="text-align: center; z-index: 5; padding-top: 50px;">
-      <h1 id='headertitle' style="font-size: 300%;">Please enter your information below!</h1>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <meta name="description" content="PD tests">
+  <title>PD tests - Information collection</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/utility.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/x-icon" href="pacman-favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Finlandica&display=swap" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .form-container {
+      background-color: #f0f0f0;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .question-label {
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-align: left;
+      margin-bottom: 0.5rem;
+    }
+    .form-control, .btn-custom, .btn-lg {
+      font-size: 1.2rem;
+    }
+    .btn-custom {
+      background-color: rgb(9, 136, 240);
+      color: white;
+      padding: 0.75rem 1.5rem;
+    }
+    .btn-success {
+      background-color: darkgreen;
+    }
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Parkinson's Survey</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="../src/index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../src/about.html">About</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-      <div class="fullwidth">
-        <div class="leftblock">
-          <h1 style="font-size: 120%;">What is your age?</h1>
-        </div>
-        <div class="rightblock">
-          <input type="text" id='age' class="niceenter" value="65">
-        </div>
-      </div>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Please enter your information below!</h1>
 
-      <div class="fullwidth">
-        <div class="leftblock">
-          <h1 style="font-size: 120%;">What is your Gender?</h1>
+    <div class="form-container">
+      <form>
+        <div class="form-group">
+          <label class="question-label">What is your age?</label>
+          <input type="text" class="form-control" id="age" value="65">
         </div>
-        <div class="rightblock">
-          <select name="gender" id="gender" class="niceenter">
+
+        <div class="form-group">
+          <label class="question-label">What is your Gender?</label>
+          <select class="form-control" id="gender">
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Other">Other</option>
           </select>
         </div>
-      </div>
 
-
-      <div class="fullwidth">
-        <div class="leftblock">
-          <h1 style="font-size: 120%;">What is your Race/ethnicity?</h1>
-        </div>
-        <div class="rightblock">
-          <select name="race" id="race" class="niceenter">
+        <div class="form-group">
+          <label class="question-label">What is your Race/ethnicity?</label>
+          <select class="form-control" id="race">
             <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
             <option value="Asian">Asian</option>
             <option value="Black or African American">Black or African American</option>
@@ -64,36 +87,57 @@
             <option value="Prefer not to specify">Prefer not to specify</option>
           </select>
         </div>
-      </div>
 
-      <div class="fullwidth">
-        <div class="leftblock" style="width: 64.6%; margin-right: 500px; margin-top: 50px;">
-          <h1 style="font-size: 200%;">Do you have Parkinsons?</h1>
+        <div class="form-group">
+          <label class="question-label">Do you have Parkinsons?</label>
+          <div class="button-group">
+            <button type="button" class="btn btn-custom" id="yesButton" onclick="storestatus('pd');">Yes</button>
+            <button type="button" class="btn btn-custom" id="noButton" onclick="storestatus('nonpd');">No</button>
+          </div>
         </div>
-        <div class="leftblock" style="width: 50.3%;">
-          <button id='pd' class="selectbutton" onclick="storestatus('pd');">Yes</button>
+        <div class="form-group">
+          <label class="question-label">Which is your dominant hand?</label>
+          <div class="button-group">
+            <button type="button" class="btn btn-custom" id="leftHandButton" onclick="storeHand('Left');">Left</button>
+            <button type="button" class="btn btn-custom" id="rightHandButton" onclick="storeHand('Right');">Right</button>
+          </div>
         </div>
-        <div class="rightblock" style="width: 48%; margin-top: -12px; margin-bottom: 50px;">
-          <button id='nonpd' class="selectbutton" onclick="storestatus('nonpd');">No</button>
+        <div class="text-center">
+          <br>
+          <button type="button" class="btn btn-primary btn-lg btn-custom" onclick="startverify();">Start the Survey</button>
         </div>
-      </div>
+      </form>
     </div>
+  </div>
 
-    <div class="blocker" id='blocker'></div>
+  <div class="blocker" id='blocker'></div>
 
-    <div class="largenotif" id="verify">
-      <h2>Please verify the following information</h2>
-      <h3 id="aged">Age:</h3>
-      <h3 id="gend">Gender:</h3>
-      <h3 id="raced">Race:</h3>
-      <h3 id="pdd">PD Status:</h3>
-      <button class="selectbutton" id='ttrs' style="width: 90%; margin-bottom: 10px;" onclick="commencetests();">This is correct, start test!</button>
-      <button class="selectbutton" onclick="closeverify();">Cancel</button>
+  <div class="largenotif" id="verify">
+    <h1>Please verify the following information</h1>
+    <div class="verify-content">
+      <h2 id="aged">Age:</h2>
+      <h2 id="gend">Gender:</h2>
+      <h2 id="raced">Race:</h2>
+      <h2 id="pdd">Parkinson’s Status:</h2>
+      <h2 id="dominantHandDisplay">Dominant Hand:</h2>
     </div>
+    <button class="btn btn-success btn-verify" id='ttrs' onclick="commencetests();">This is correct, start test!</button>
+    <button class="btn btn-danger btn-verify" onclick="closeverify();">Cancel</button>
+  </div>
 
-    <div style="text-align: center; z-index: 5; padding-top: 50px;">
-      <button class="regbutton" onclick="startverify();">Start</button>
-    </div>
-
-  </body>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+  <script src="../js/collector.js"></script>
+  <script>
+    function storestatus(status) {
+      if (status === 'pd') {
+        document.getElementById('yesButton').classList.add('btn-success');
+        document.getElementById('noButton').classList.remove('btn-success');
+      } else {
+        document.getElementById('noButton').classList.add('btn-success');
+        document.getElementById('yesButton').classList.remove('btn-success');
+      }
+    }
+  </script>
+</body>
 </html>

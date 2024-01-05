@@ -11,21 +11,36 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/x-icon" href="pacman-favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Finlandica&display=swap" rel="stylesheet"> 
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
-    <nav id="nav1">
-      <ul class="nav-items" id="nav">
-        <li><a id='header1'>PD tests</a></li>
-        <li><a id='header2' style="cursor: pointer;" href="../src/index.html">Home</a></li>
-        <li><a id='header3' style="cursor: pointer;" href="../src/about.html">About</a></li>
-      </ul> 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="#">Parkinsons's Survey</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="../src/index.html">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="../src/about.html">About <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
     </nav>
-      
-    <div style="text-align: center; z-index: 5; width: 80%; margin-left: 10%;">
-      <h1 id='headertitle' style="font-size: 300%; margin-top: 75px;">PD Tests - About</h1>
 
-      <h2 style="margin-top: 75px;">These tests are being conducted by Shubham Parab, a high school researcher, and Dr. Peter Washington, Assistant professor of Computer Science at the University of Hawaii at Manoa. The goal of these tests is to eventially create a means of accessible, easy and free deagnisis for Parkinson's Disease. To do this, both participants suffering from the disease and healthy participants are being asked to complete this series of tests, which will include moving a mouse in a specified direction, and tapping specific keys when prompted. If there are any questions about this, you can reach out at skparab1@gmail.com. Thank you!</h2>
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <h1 class="mt-5" style="font-size: 300%;">About</h1>
+          <h2 class="mt-5">These tests are being conducted by Members of Hawaii Digital Health Lab and Dr. Peter Washington, Assistant Professor of Information & Computer Sciences Department at the University of Hawaii at Manoa. The goal of these tests is to eventually create a means of accessible, Fair and free Diagnosis for Parkinson's Disease. To do this, both participants suffering from the disease and healthy participants are being asked to complete this series of tests, which will include moving a mouse in a specified direction, and tapping specific keys when prompted. If there are any questions about data collected or this website, you can reach out at "zawad@hawaii.edu" Thank you!</h2>
+          <br>
+          <img src="../assets/LabLogo.png" alt="Research Image" class="img-fluid" width = 50%>
+        </div>
+      </div>
     </div>
-
+  </div>
   </body>
 </html>
