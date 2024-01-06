@@ -66,6 +66,11 @@
           <label class="question-label">What is your age?</label>
           <input type="text" class="form-control" id="age" value="65">
         </div>
+        <div class="form-group">
+          <label class="question-label">What is your Height (in cm)?</label>
+          <br>
+          <input type="number" class="form-control" id="height" name="height" value = "170">
+      </div>
 
         <div class="form-group">
           <label class="question-label">What is your Gender?</label>
@@ -87,12 +92,12 @@
             <option value="Prefer not to specify">Prefer not to specify</option>
           </select>
         </div>
-
         <div class="form-group">
           <label class="question-label">Do you have Parkinsons?</label>
           <div class="button-group">
             <button type="button" class="btn btn-custom" id="yesButton" onclick="storestatus('pd');">Yes</button>
             <button type="button" class="btn btn-custom" id="noButton" onclick="storestatus('nonpd');">No</button>
+            <button type="button" class="btn btn-custom" id="suspectedpd" onclick="storestatus('suspectedpd')">Suspected but not Diagnosed</button>
           </div>
         </div>
         <div class="form-group">
@@ -120,6 +125,8 @@
       <h2 id="raced">Race:</h2>
       <h2 id="pdd">Parkinson’s Status:</h2>
       <h2 id="dominantHandDisplay">Dominant Hand:</h2>
+      <h2 id="heightd">Height:</h2>
+
     </div>
     <button class="btn btn-success btn-verify" id='ttrs' onclick="commencetests();">This is correct, start test!</button>
     <button class="btn btn-danger btn-verify" onclick="closeverify();">Cancel</button>
@@ -128,16 +135,5 @@
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
   <script src="../js/collector.js"></script>
-  <script>
-    function storestatus(status) {
-      if (status === 'pd') {
-        document.getElementById('yesButton').classList.add('btn-success');
-        document.getElementById('noButton').classList.remove('btn-success');
-      } else {
-        document.getElementById('noButton').classList.add('btn-success');
-        document.getElementById('yesButton').classList.remove('btn-success');
-      }
-    }
-  </script>
 </body>
 </html>

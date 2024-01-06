@@ -48,40 +48,51 @@ if (localStorage.getItem('pdcompleted') == 'true'){
 }
 
 // do the interactivity for the pd status selector
-function storestatus(st){
+function storestatus(status) {
+  let yesButton = document.getElementById('yesButton');
+  let noButton = document.getElementById('noButton');
+  let suspectedButton = document.getElementById('suspectedpd');
 
-  // get the two display buttons
-  let thepd = document.getElementById('pd');
-  let nonpd = document.getElementById('nonpd');
+  // Remove the btn-success class from all buttons
+  yesButton.classList.remove('btn-success');
+  noButton.classList.remove('btn-success');
+  suspectedButton.classList.remove('btn-success');
 
-  // if the user has selected pd
-  if (st == 'pd'){
-    // mute the nonpd button
-    nonpd.style.opacity = 0.25;
-    nonpd.style.border = '0px solid black';
-
-    // highlight the pd button
-    thepd.style.opacity = 1;
-    thepd.style.border = '2px solid black';
-
-    // set the status variable
+  // Add the btn-success class to the clicked button and update pd_status
+  if (status === 'pd') {
+    yesButton.classList.add('btn-success');
     pd_status = 'pd';
-
-  // if the user has selected nonpd
+  } else if (status === 'suspectedpd') {
+    suspectedButton.classList.add('btn-success');
+    pd_status = 'suspectedpd';
   } else {
-    // mute the pd button
-    thepd.style.opacity = 0.25;
-    thepd.style.border = '0px solid black';
-
-    // highligth the nonpd button
-    nonpd.style.opacity = 1;
-    nonpd.style.border = '2px solid black';
-
-    // change the variable
+    noButton.classList.add('btn-success');
     pd_status = 'nonpd';
   }
 }
 
+
+
+// Global variable to store the dominant hand
+let dominantHand = "Right";
+
+// Function to store the dominant hand selection
+function storeHand(hand) {
+  dominantHand = hand;
+  let leftHandButton = document.getElementById('leftHandButton');
+  let rightHandButton = document.getElementById('rightHandButton');
+
+  // Remove the btn-success class from both buttons
+  leftHandButton.classList.remove('btn-success');
+  rightHandButton.classList.remove('btn-success');
+
+  // Add the btn-success class to the selected button
+  if (hand === 'Left') {
+    leftHandButton.classList.add('btn-success');
+  } else {
+    rightHandButton.classList.add('btn-success');
+  }
+}
 
 
 // when the user clicks start open verification window and save status
@@ -99,12 +110,15 @@ function startverify(){
 
   // display demographics on the verification dialogue
   document.getElementById('aged').textContent = "Age: "+document.getElementById('age').value+" years old";
+  document.getElementById('heightd').textContent = "Height: " + document.getElementById('height').value + " cm";
   document.getElementById('gend').textContent = "Gender: "+document.getElementById('gender').value;
   document.getElementById('raced').textContent = "Race: "+document.getElementById('race').value;
 
   // display pd status on the dialogue
-  if (pd_status == 'pd'){
+  if (pd_status === 'pd') {
     document.getElementById('pdd').textContent = "PD Status: Has PD";
+  } else if (pd_status === 'suspectedpd') {
+    document.getElementById('pdd').textContent = "PD Status: Suspected but not Diagnosed";
   } else {
     document.getElementById('pdd').textContent = "PD Status: Does not have PD";
   }
@@ -120,18 +134,8 @@ function closeverify(){
   verify.style.display = 'none';
 }
 
-// Global variable to store the dominant hand
-let dominantHand = "Right";
 
-// Function to store the dominant hand selection
-function storeHand(hand) {
-  dominantHand = hand;
-  document.getElementById('leftHandButton').classList.remove('btn-success');
-  document.getElementById('rightHandButton').classList.remove('btn-success');
-  document.getElementById(hand + 'HandButton').classList.add('btn-success');
-}
-
-// Modify the senddata function to include the dominant hand
+//senddata function to include the dominant hand
 async function senddata() {
   let userid = new Date().getTime().toString();
   sessionStorage.setItem('userid', userid);
@@ -141,11 +145,12 @@ async function senddata() {
   let data = {
     user: userid,
     age: document.getElementById('age').value,
+    Participant_height: document.getElementById('height').value,
     gender: document.getElementById('gender').value,
     race: document.getElementById('race').value,
     status: pd_status,
     deviceType: deviceType,
-    dominantHand: dominantHand // Add dominant hand to the data
+    dominantHand: dominantHand
   };
 
   // Use the user ID as the document ID
