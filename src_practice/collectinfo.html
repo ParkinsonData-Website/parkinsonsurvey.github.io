@@ -1,52 +1,51 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset='utf-8'>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <meta name="description" content="PD tests">
-  <title>PD tests - Information collection</title>
-  <link rel="stylesheet" href="../css/styles.css">
-  <link rel="stylesheet" href="../css/utility.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="icon" type="image/x-icon" href="pacman-favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Finlandica&display=swap" rel="stylesheet">
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-  <style>
-    .form-container {
-      background-color: #f0f0f0;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    .question-label {
-      font-size: 1.4rem;
-      font-weight: bold;
-      text-align: left;
-      margin-bottom: 0.5rem;
-    }
-    .form-control, .btn-custom, .btn-lg {
-      font-size: 1.2rem;
-    }
-    .btn-custom {
-      background-color: rgb(9, 136, 240);
-      color: white;
-      padding: 0.75rem 1.5rem;
-    }
-    .btn-success {
-      background-color: darkgreen;
-    }
-    .button-group {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-    }
-  </style>
-</head>
-
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name="description" content="PD tests">
+    <title>PD tests - Information collection</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/utility.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-icon" href="pacman-favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Finlandica&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <style>
+      .form-container {
+        background-color: #f0f0f0;
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .question-label {
+        font-size: 1.4rem;
+        font-weight: bold;
+        text-align: left;
+        margin-bottom: 0.5rem;
+      }
+      .form-control, .btn-custom, .btn-lg {
+        font-size: 1.2rem;
+      }
+      .btn-custom {
+        background-color: rgb(9, 136, 240);
+        color: white;
+        padding: 0.75rem 1.5rem;
+      }
+      .btn-success {
+        background-color: darkgreen;
+      }
+      .button-group {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+      }
+    </style>
+  </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="#">Parkinson's Survey</a>
@@ -64,6 +63,7 @@
 
   <div class="container mt-5">
     <h1 class="text-center mb-4">Please enter your information below!</h1>
+    <h1 class="text-center mb-4"><b>This is a Practice and None of the informations willl be stored</b></h1>
 
     <div class="form-container">
       <form>
@@ -124,7 +124,7 @@
           </select>
           </select>
         </div>
-
+        
         <div class="form-group">
           <label class="question-label">Do you have Parkinsons?</label>
           <div class="button-group">
@@ -166,16 +166,11 @@
     <button class="btn btn-success btn-verify" id='ttrs' onclick="commencetests();">This is correct, start test!</button>
     <button class="btn btn-danger btn-verify" onclick="closeverify();">Cancel</button>
   </div>
-
-  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
-  <script src="../js/collector.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+  <script src="../js_practice/collector.js"></script>
   <script>
     $(document).ready(function() {
       $('.selectpicker').selectpicker();
     });
-    
   </script>
 </body>
 </html>

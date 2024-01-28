@@ -40,9 +40,6 @@
       <button onclick="closePopup()" style="background-color: white; color: black; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">OK</button>
     </div>
     <script>
-      if (localStorage.getItem('pdcompleted') == 'true'){
-        window.location.href = '../src/index.html';
-      }
       console.log("came here")
      // Function to close the popup
      function closePopup() {
@@ -76,7 +73,7 @@
       <div class="col-md-6 text-center">
         <br>
         <h3>Research Conducted By:</h3>
-        <img src="../assets/LabLogo.png" alt="Research Image" class="img-fluid">
+        <img src="../assets/LabLogo.png" alt="Research Image" class="img-fluid" width="65%">
       </div>
       <div class="col-md-6 text-center">
         <br>
@@ -90,6 +87,14 @@
       <div class="col text-center">
         <br><h5>This Survey will ask for your Gender, Ethnicity, Age, Height, Parkinson’s Status and Dominant Hand. If you are comfortable with providing these informations, Please click on the "Start Survey" button below to continue</h5> <br>
         <a href="../src/collectinfo.html" class="btn btn-success btn-lg">Start The Survey</a>
+      </div>
+      <div class="row">
+        <div class="col text-center">
+          <br>
+          <h5>Or, you can start a Practice Test where you can acquaint yourself with the steps of the survey. None of the information taken during the practice will be stored.</h5>
+          <br>
+          <a href="../src_practice/collectinfo.html" class="btn btn-info btn-lg">Start Practice Test</a>
+        </div>
       </div>
     </div>    
     </div>

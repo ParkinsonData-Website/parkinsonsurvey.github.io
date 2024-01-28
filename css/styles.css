@@ -204,4 +204,9 @@ nav {
 #statsModal .modal-footer {
   background-color: #f8f9fa; /* Footer background color */
 }
+.navbar img {
+  vertical-align: middle;
+  max-height: 80px; /* Adjust as needed */
+}
+
 
