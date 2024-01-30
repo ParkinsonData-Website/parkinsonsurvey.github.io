@@ -104,6 +104,9 @@ function startverify(){
   blocker.style.opacity = 1;
   verify.style.display = 'block';
   $('.selectpicker').selectpicker('hide');
+  let medicationTiming = document.getElementById('medicationTiming').value;
+  let isNA = document.getElementById('naCheckbox').checked;
+  let timingText = isNA ? "N/A" : medicationTiming + " hours ago";
 
   // display demographics on the verification dialogue
   document.getElementById('aged').textContent = "Age: "+document.getElementById('age').value+" years old";
@@ -112,7 +115,7 @@ function startverify(){
   document.getElementById('raced').textContent = "Race: "+document.getElementById('race').value;
   document.getElementById('medicationsDisplay').textContent = "Medications: " + (selectedMedications ? selectedMedications.join(', ') : 'None');
   document.getElementById('therapiesDisplay').textContent = "Therapies: " + (selectedTherapies ? selectedTherapies.join(', ') : 'None');
-
+  document.getElementById('medicationTimingDisplay').textContent = "Last Medication Timing: " + timingText;
 
   // display pd status on the dialogue
   if (pd_status === 'pd') {
@@ -152,6 +155,8 @@ async function senddata(medications, therapies) {
   sessionStorage.setItem('userid', userid);
   theid = userid;
   let deviceType = detectDeviceType(); 
+  let medicationTiming = document.getElementById('medicationTiming').value;
+  let isNA = document.getElementById('naCheckbox').checked;
 
   let data = {
     user: userid,
@@ -161,6 +166,7 @@ async function senddata(medications, therapies) {
     race: document.getElementById('race').value,
     medications: medications, // Use the medications parameter
     therapies: therapies,     // Use the therapies parameter
+    medicationTiming: isNA ? "N/A" : medicationTiming,
     status: pd_status,
     deviceType: deviceType,
     dominantHand: dominantHand

@@ -81,10 +81,11 @@ function storeHand(hand) {
 
 // when the user clicks start open verification window and save status
 function startverify(){
+
   let selectedMedications = $('#medications').val() || [];
   let selectedTherapies = $('#therapies').val() || [];
   // send the data to the database
-  senddata();
+  senddata(selectedMedications, selectedTherapies);
   // make the background blocker and verification dialogue visible
   let blocker = document.getElementById('blocker');
   let verify = document.getElementById('verify');
@@ -92,6 +93,9 @@ function startverify(){
   blocker.style.opacity = 1;
   verify.style.display = 'block';
   $('.selectpicker').selectpicker('hide');
+  let medicationTiming = document.getElementById('medicationTiming').value;
+  let isNA = document.getElementById('naCheckbox').checked;
+  let timingText = isNA ? "N/A" : medicationTiming + " hours ago";
 
   // display demographics on the verification dialogue
   document.getElementById('aged').textContent = "Age: "+document.getElementById('age').value+" years old";
@@ -100,7 +104,7 @@ function startverify(){
   document.getElementById('raced').textContent = "Race: "+document.getElementById('race').value;
   document.getElementById('medicationsDisplay').textContent = "Medications: " + (selectedMedications ? selectedMedications.join(', ') : 'None');
   document.getElementById('therapiesDisplay').textContent = "Therapies: " + (selectedTherapies ? selectedTherapies.join(', ') : 'None');
-
+  document.getElementById('medicationTimingDisplay').textContent = "Last Medication Timing: " + timingText;
 
   // display pd status on the dialogue
   if (pd_status === 'pd') {
