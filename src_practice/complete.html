@@ -35,11 +35,28 @@
         <!-- Image before the text -->
         <img src="../assets/done.PNG" alt="Image Before" class="img-fluid mb-3">
 
-        <h1 style="font-size: 300%; margin-top: 75px;">You've already completed this test!</h1>
-        <h1 style="font-size: 200%;">Thank you for your time!</h1>
-
-        <!-- Image after the text -->
-        <img src="../assets/LabLogo.png" alt="Image After" class="img-fluid mt-3">
+        <h1 style="font-size: 300%; margin-top: 75px;">You are Done with Practicing the Parkinson's Survey</h1>
+        <h1 style="font-size: 200%;">Thank you so much for your time! You can now take the original survey or Practice again.</h1>
+        <br>
+        <br>
+        <button id="taketest" class="btn btn-success btn-lg">Start The Original Survey</button>
+        <button id="retakepractice" class="btn btn-success btn-lg">Practice Survey Again</button>
+        <br>
+        <br>
     </div>
+    <div class="text-center" style="z-index: 5;">
+            <!-- Image after the text -->
+        <img src="../assets/LabLogo.png" alt="Image After" class="img-fluid mt-3" width="30%">
+    </div>
+    <script>
+      document.getElementById('taketest').addEventListener('click', function() {
+          window.location.href = '../src/collectinfo.html';
+      });
+      
+      document.getElementById('retakepractice').addEventListener('click', function() {
+          window.location.href = '../src_practice/collectinfo.html';
+      });
+      </script>
+      
 </body>
 </html>

@@ -1,15 +1,4 @@
-// this file runs the keyboard test
-const firebaseConfig = {
-  apiKey: "AIzaSyAnlwmmb-Wc_xDpW1Vli0cEMm7hbPk_tR8",
-  authDomain: "pd-website-test.firebaseapp.com",
-  projectId: "pd-website-test",
-  storageBucket: "pd-website-test.appspot.com",
-  messagingSenderId: "497582545475",
-  appId: "1:497582545475:web:aaf3986c35bf5ba414d2f6"
-};
 
-firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore();
 
 // define some stuff
 const sleep = ms => new Promise(res => setTimeout(res, ms));
@@ -32,6 +21,7 @@ var pDominantTimestamps = [];
 var qDominantTimestamps = [];
 var pNonDominantTimestamps = [];
 var qNonDominantTimestamps = [];
+
 
 
 
@@ -92,47 +82,7 @@ function stringize(e){
 function senddata() {
   // Extract user ID from the URL
 let userid = sessionStorage.getItem('userid');
-
-
-  // Prepare data to be sent
-  let data = {
-    user: userid,
-    timestamps: {
-      round1: timestamps[0],
-      round2: timestamps[1],
-      round3: timestamps[2]
-    },
-    keyPresses: {
-      round1: kpressed[0],
-      round2: kpressed[1],
-      round3: kpressed[2]
-    },
-    expectedKeys: {
-      round1: kexpected[0],
-      round2: kexpected[1],
-      round3: kexpected[2]
-    },
-    falseClicks: falseclick,
-    rightClicks: rightclicks,
-    wrongClicks: wrongclicks,
-    pDominantTimes: stringize(pDominantTimestamps),
-    qDominantTimes: stringize(qDominantTimestamps),
-    pNonDominantTimes: stringize(pNonDominantTimestamps),
-    qNonDominantTimes: stringize(qNonDominantTimestamps)
-  };
-
-  // Send data to Firestore
-  db.collection("testData").doc(userid).set(data, { merge: true })
-  .then(() => {
-      console.log("Document updated for User ID: ", userid);
-      // Update display with a thank you message
-      //document.getElementById('navbarTextContent').textContent = "All done! Thanks for participating in this test! You can now close this tab.";
-      // Update the localstorage to mark that this user has completed the test
-      localStorage.setItem('pdcompleted','true');
-    })
-    .catch((error) => {
-      console.error("Error adding document: ", error);
-    });
+console.log("data sent");
 
 }
 
@@ -172,7 +122,7 @@ function dispstats2() {
 function hidestats2() {
   $('#statsModal').modal('hide');
   $('#statsModal').on('hidden.bs.modal', function (e) {
-    window.location.href = '../src/complete.html';
+    window.location.href = '../src_practice/complete.html';
   });
 }
 

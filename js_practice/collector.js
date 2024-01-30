@@ -5,17 +5,6 @@
 let pd_status = "";
 // assign the user an id based on timestamp
 let theid = 0;
-const firebaseConfig = {
-  apiKey: "AIzaSyAnlwmmb-Wc_xDpW1Vli0cEMm7hbPk_tR8",
-  authDomain: "pd-website-test.firebaseapp.com",
-  projectId: "pd-website-test",
-  storageBucket: "pd-website-test.appspot.com",
-  messagingSenderId: "497582545475",
-  appId: "1:497582545475:web:aaf3986c35bf5ba414d2f6"
-};
-
-firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore();
 
 // Detects the device type
 function detectDeviceType() {
@@ -92,11 +81,10 @@ function storeHand(hand) {
 
 // when the user clicks start open verification window and save status
 function startverify(){
-
   let selectedMedications = $('#medications').val() || [];
   let selectedTherapies = $('#therapies').val() || [];
   // send the data to the database
-  senddata(selectedMedications, selectedTherapies);
+  senddata();
   // make the background blocker and verification dialogue visible
   let blocker = document.getElementById('blocker');
   let verify = document.getElementById('verify');
@@ -134,60 +122,23 @@ function closeverify(){
   verify.style.display = 'none';
   $('.selectpicker').selectpicker('show');
 }
-// Function to get selected options from a multi-select dropdown
-function getSelectedOptions(selectId) {
-  let select = document.getElementById(selectId);
-  let selected = [];
-  for (let option of select.options) {
-    if (option.selected) {
-      selected.push(option.value);
-    }
-  }
-  return selected;
-}
+
 
 //senddata function to include the dominant hand
-async function senddata(medications, therapies) {
+async function senddata() {
   let userid = new Date().getTime().toString();
-  sessionStorage.setItem('userid', userid);
-  theid = userid;
-  let deviceType = detectDeviceType(); 
-
-  let data = {
-    user: userid,
-    age: document.getElementById('age').value,
-    Participant_height: document.getElementById('height').value,
-    gender: document.getElementById('gender').value,
-    race: document.getElementById('race').value,
-    medications: medications, // Use the medications parameter
-    therapies: therapies,     // Use the therapies parameter
-    status: pd_status,
-    deviceType: deviceType,
-    dominantHand: dominantHand
-  };
-
-  // Use the user ID as the document ID
-  db.collection("testData").doc(userid).set(data, { merge: true })
-  .then(() => {
-      console.log("Document updated for User ID: ", userid);
-    })
-    .catch((error) => {
-      console.error("Error writing document: ", error);
-    });
+  console.log("senddata function called");
 }
 
 
 // redirect user to the mouse test after they verify data
-function commencetests() {
-  let selectedMedications = $('#medications').val() || [];
-  let selectedTherapies = $('#therapies').val() || [];
-
-  // Debugging: Log the selected options
-  console.log("Selected Medications: ", selectedMedications);
-  console.log("Selected Therapies: ", selectedTherapies);
-
-  senddata(selectedMedications, selectedTherapies);
-
+function commencetests(){
+  // nah just send it directly
+  //http://localhost:3000/?PDINFO&user=person4&age=65&gender=male&race=asian&status=nonpd
+  console.log("commencetests function called");
+  
   document.getElementById('ttrs').textContent = "Launching...";
-  window.open('../src/mouse.html?' + theid, '_self');
+  
+  window.open('../src_practice/mouse.html?'+theid,'_self');
+
 }

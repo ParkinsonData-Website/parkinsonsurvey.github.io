@@ -1,15 +1,5 @@
 // this file powers the mouse tests, also sends mouse data to the database
-const firebaseConfig = {
-  apiKey: "AIzaSyAnlwmmb-Wc_xDpW1Vli0cEMm7hbPk_tR8",
-  authDomain: "pd-website-test.firebaseapp.com",
-  projectId: "pd-website-test",
-  storageBucket: "pd-website-test.appspot.com",
-  messagingSenderId: "497582545475",
-  appId: "1:497582545475:web:aaf3986c35bf5ba414d2f6"
-};
 
-firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore();
 
 // function to put arrays into a convenient form
 function stringize(e){
@@ -39,31 +29,11 @@ function senddata() {
   // Extract user ID from the URL
 let userid = sessionStorage.getItem('userid');
 
-
-  // Prepare data to be sent
-  let data = {
-    user: userid,
-    r1points: stringize(r1points),
-    r2points: stringize(r2points),
-    r3points: stringize(r3points),
-    width: window.innerWidth,
-    height: window.innerHeight
-  };
-
-  // Send data to Firestore
-// Send data to Firestore
-db.collection("testData").doc(userid).set(data, { merge: true })
-  .then(() => {
-      console.log("Document updated for User ID: ", userid);
-      // Redirect to the keyboard test after successful data submission
-      document.getElementById('navbarTextContent').textContent = "Data sent! Launching keyboard tests...";
-      window.open('../src/keyboard.html?' + userid, '_self');
-  })
-  .catch((error) => {
-      console.error("Error adding document: ", error);
-  });
-
+console.log("data sent for user: "+userid);
+console.log("here: ");
+window.open('../src_practice/keyboard.html?' + userid, '_self');
 }
+
 function updateProgressBar(currentLevel, totalLevels) {
   const progressPercentage = (currentLevel / totalLevels) * 100;
   const progressBar = document.getElementById('progressBar');
@@ -411,7 +381,7 @@ let dotInterval = 500; // Interval between dots in milliseconds
 // Function to generate a random position within the canvas
 function getRandomPosition() {
   let x = Math.random() * (canvas.width - 20) + 40; // 10 is margin
-  let y = Math.random() * (canvas.height - 20) + 40; // 10 is margin
+  let y = Math.random() * (canvas.height - 30) + 60; // 10 is margin
   return { x, y };
 }
 
@@ -460,15 +430,7 @@ function endGame() {
 // Function to send game data to Firebase
 function sendGameData() {
   let userid = sessionStorage.getItem('userid');
-  let data = { user: userid, gameData };
-
-  db.collection("testData").doc(userid).set({ gameData: data }, { merge: true })
-    .then(() => {
-      console.log("Game data sent for User ID: ", userid);
-    })
-    .catch((error) => {
-      console.error("Error sending game data: ", error);
-    });
+  window.open('../src_practice/keyboard.html?' + userid, '_self');
 }
 
 // Start the game

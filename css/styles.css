@@ -15,6 +15,7 @@ a {
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 nav {
   position: fixed;
   top: 0px;
@@ -99,12 +100,15 @@ nav {
 
 .largenotif{
   position: fixed;
-  width: 40%;
-  height: 60%;
-  left: 30%;
+  width: auto;
+  height: auto;
+  left: 35%;
   top: 20%;
   border: 3px solid rgb(2, 117, 216);
   border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for pop-up */
+  padding: 20px;
+  margin: auto;
   background: rgba(255,255,255,0.9);
   text-align: center;
   display: none;
@@ -121,3 +125,88 @@ nav {
   opacity: 0;
   transition: opacity 0.2s;
 }
+
+.largenotif h2 {
+  color: #333333; /* Dark text for heading */
+  font-size: 1.5rem; /* Font size for heading */
+  margin-bottom: 15px;
+}
+
+.largenotif h3 {
+  color: #555555; /* Dark text for content */
+  font-size: 1.1rem; /* Font size for content */
+  margin: 5px 0; /* Reduced margin for content */
+}
+
+.btn-verify {
+  font-size: 1.1rem; /* Font size for buttons */
+  padding: 0.5rem 1rem; /* Padding for buttons */
+  margin-top: 10px; /* Space above the buttons */
+  width: auto; /* Auto width based on content */
+  margin-bottom: 10px; /* Space between buttons */
+}
+
+.verify-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#instruction-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+#instruction-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+/* Custom Navbar Styles */
+.navbar .container-fluid {
+  justify-content: center; /* Center the content */
+  text-align: center; /* Center align the text */
+}
+
+.navbar-brand, .navbar-nav .nav-link {
+  font-size: 1.25rem; /* Increase font size */
+  margin: 0; /* Remove any default margin */
+}
+
+/* Ensure the navbar text is vertically centered */
+.navbar-nav {
+  align-items: center;
+}
+#statsModal .modal-content {
+  background-color: #f8f9fa; /* Light background color */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Box shadow for 3D effect */
+}
+#statsModal .modal-header {
+  background-color: #007bff; /* Header background color */
+  color: white; /* Text color for the header */
+  border-top-left-radius: 10px; /* Rounded top-left corner */
+  border-top-right-radius: 10px; /* Rounded top-right corner */
+}
+#statsModal .modal-body p {
+  font-weight: bold; /* Bold text for modal body */
+  color: #333; /* Dark text color for readability */
+  font-size: 1.5em; /* Slightly larger text */
+}
+#statsModal .modal-footer {
+  background-color: #f8f9fa; /* Footer background color */
+}
+.navbar img {
+  vertical-align: middle;
+  max-height: 80px; /* Adjust as needed */
+}
+
+
