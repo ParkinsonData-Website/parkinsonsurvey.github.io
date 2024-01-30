@@ -99,7 +99,7 @@
         </div>
         <!-- Medications Dropdown -->
         <div class="form-group">
-          <label class="question-label">Medicines for Parkinson’s Treatment:</label>
+          <label class="question-label">What Medications are you taking for Parkinson’s Treatment:</label>
           <select multiple class="form-control selectpicker" id="medications" data-live-search="true">
             <option value="Levodopa">Levodopa / Rytary / Sinemet / Duopa</option>
             <option value="Dopamine Agonists">Dopamine Agonists (Ropinirole, Mirapexin, Apomorphine (Apokyn), Rotigotine (Neupro))</option>
@@ -115,7 +115,7 @@
 
         <!-- Alternative Therapies Dropdown -->
         <div class="form-group">
-          <label class="question-label">Other treatments for Parkinson's:</label>
+          <label class="question-label">What alternative treatments are you taking for for Parkinson's:</label>
           <select multiple class="form-control selectpicker" id="therapies" data-live-search="true">
             <option value="Deep brain stimulation">Deep brain stimulation</option>
             <option value="MRgFUS">MRgFUS (MRI-guided focused ultrasound)</option>
@@ -124,7 +124,17 @@
           </select>
           </select>
         </div>
-
+        <div class="form-group">
+          <label class="question-label">How long ago did you take your last medication dosage? (in hours)</label>
+          <input type="number" class="form-control" id="medicationTiming" placeholder="Enter hours" min="0">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="naCheckbox">
+            <label class="form-check-label" for="naCheckbox">
+              N/A
+            </label>
+          </div>
+        </div>
+        
         <div class="form-group">
           <label class="question-label">Do you have Parkinsons?</label>
           <div class="button-group">
@@ -158,6 +168,7 @@
       <h2 id="raced">Race:</h2>
       <h2 id="medicationsDisplay">Medications:</h2>
       <h2 id="therapiesDisplay">Therapies:</h2>
+      <h2 id="medicationTimingDisplay">Last Medication Timing:</h2>
       <h2 id="pdd">Parkinson’s Status:</h2>
       <h2 id="dominantHandDisplay">Dominant Hand:</h2>
       <h2 id="heightd">Height:</h2>
@@ -175,7 +186,13 @@
     $(document).ready(function() {
       $('.selectpicker').selectpicker();
     });
-    
+    document.getElementById('naCheckbox').addEventListener('change', function() {
+  let medicationTimingInput = document.getElementById('medicationTiming');
+  medicationTimingInput.disabled = this.checked;
+  if (this.checked) {
+    medicationTimingInput.value = '';
+  }
+});
   </script>
 </body>
 </html>
