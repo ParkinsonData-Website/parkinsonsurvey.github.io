@@ -158,6 +158,7 @@ nav {
   left: 0;
   width: 100%;
   height: 100%;
+  overflow-y: auto;
   background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   z-index: 10;
   display: flex;
@@ -170,6 +171,11 @@ nav {
   padding: 20px;
   border-radius: 10px;
 }
+#instruction-content img {
+  max-width: 60%; /* Image will not exceed the container's width */
+  height: auto; /* Maintain aspect ratio */
+}
+
 /* Custom Navbar Styles */
 .navbar .container-fluid {
   justify-content: center; /* Center the content */
@@ -207,6 +213,16 @@ nav {
 .navbar img {
   vertical-align: middle;
   max-height: 80px; /* Adjust as needed */
+}
+.footer {
+  margin-top: 50px; /* Adjust the margin as needed */
+  padding: 20px 0;
+  background-color: #f5f5f5; /* Choose a background color that fits your design */
+  color: #333; /* Text color */
+}
+
+.footer p {
+  margin-bottom: 0;
 }
 
 
