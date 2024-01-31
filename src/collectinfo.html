@@ -48,8 +48,8 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">Parkinson's Survey</a>
+    <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #13512f !important">
+    <p class="navbar-brand">Parkinson's Survey</p>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -140,16 +140,16 @@
         <div class="form-group">
           <label class="question-label">Do you have Parkinsons?</label>
           <div class="button-group">
-            <button type="button" class="btn btn-custom" id="yesButton" onclick="storestatus('pd');">Yes</button>
-            <button type="button" class="btn btn-custom" id="noButton" onclick="storestatus('nonpd');">No</button>
-            <button type="button" class="btn btn-custom" id="suspectedpd" onclick="storestatus('suspectedpd')">Suspected but not Diagnosed</button>
+            <button type="button" class="btn btn-success btn-custom" id="yesButton" onclick="storestatus('pd');">Yes</button>
+            <button type="button" class="btn btn-success btn-custom" id="noButton" onclick="storestatus('nonpd');">No</button>
+            <button type="button" class="btn btn-success btn-custom" id="suspectedpd" onclick="storestatus('suspectedpd')">Suspected but not Diagnosed</button>
           </div>
         </div>
         <div class="form-group">
           <label class="question-label">Which is your dominant hand? (The one you use for tasks like Writing, Brushing, Cathcing a ball, etc.)</label>
           <div class="button-group">
-            <button type="button" class="btn btn-custom" id="leftHandButton" onclick="storeHand('Left');">Left</button>
-            <button type="button" class="btn btn-custom" id="rightHandButton" onclick="storeHand('Right');">Right</button>
+            <button type="button" class="btn btn-success btn-custom" id="leftHandButton" onclick="storeHand('Left');">Left</button>
+            <button type="button" class="btn btn-success btn-custom" id="rightHandButton" onclick="storeHand('Right');">Right</button>
           </div>
         </div>
         <div class="text-center">
