@@ -14,8 +14,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Finlandica&display=swap" rel="stylesheet"> 
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">Parkinson's Survey</a>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #13512f !important">
+      <p class="navbar-brand" >Parkinson's Study</p>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -45,9 +45,13 @@
         <br>
         <br>
     </div>
-    <div class="text-center" style="z-index: 5;">
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        <div class="col-9 col-sm-8 col-md-6 col-lg-4">
             <!-- Image after the text -->
-        <img src="../assets/LabLogo.png" alt="Image After" class="img-fluid mt-3" width="30%">
+          <img src="../assets/LabLogo.png" alt="Image After" class="img-fluid mt-3">
+        </div>
+      </div>
     </div>
     <script>
       document.getElementById('retakeSame').addEventListener('click', function() {
@@ -61,7 +65,11 @@
           window.location.href = '../src/collectinfo.html';
       });
       </script>
-        <footer class="footer">
+      <br>
+      <br>
+      <br>
+      <br>
+        <footer class="footer fixed-bottom d-none d-sm-block">
           <div class="container text-center">
               <p>&copy; 2024 Hawaii Digital Health Lab</p>
           </div>
