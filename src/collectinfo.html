@@ -101,7 +101,7 @@
         <div class="form-group">
           <label class="question-label">What Medications are you taking for Parkinson’s Treatment:</label>
           <select multiple class="form-control selectpicker" id="medications" data-live-search="true">
-            <option value="N/A" selected>N/A</option>
+            <option value="N/A" id="medicationNA" selected>N/A</option>
             <option value="Levodopa">Levodopa / Rytary / Sinemet / Duopa</option>
             <option value="Dopamine Agonists">Dopamine Agonists (Ropinirole, Mirapexin, Apomorphine (Apokyn), Rotigotine (Neupro))</option>
             <option value="MAO-B Inhibitors">MAO-B Inhibitors (Rasagiline(Zelapar), Selegiline(Neupro)(Azilect), Safinamide(Xadago))</option>
@@ -118,7 +118,7 @@
         <div class="form-group">
           <label class="question-label">What alternative treatments are you taking for for Parkinson's:</label>
           <select multiple class="form-control selectpicker" id="therapies" data-live-search="true">
-            <option value="N/A" selected>N/A</option>
+            <option value="N/A" id="therapiesNA" selected>N/A</option>
             <option value="Deep brain stimulation">Deep brain stimulation</option>
             <option value="MRgFUS">MRgFUS (MRI-guided focused ultrasound)</option>
             <option value="Physical Therapy">Physical Therapy</option>
@@ -195,6 +195,29 @@
     medicationTimingInput.value = '';
   }
 });
+  $(document).ready(function() {
+    $('.selectpicker').selectpicker();
+
+    function handleDropdownChange(dropdownId) {
+      let selectedOptions = $(`#${dropdownId}`).val();
+      if (selectedOptions && selectedOptions.includes('N/A')) {
+        // If N/A is selected along with other options, remove N/A
+        if (selectedOptions.length > 1) {
+          $(`#${dropdownId}`).selectpicker('val', selectedOptions.filter(option => option !== 'N/A'));
+        }
+      }
+    }
+
+    // Event listener for Medications dropdown
+    $('#medications').on('changed.bs.select', function() {
+      handleDropdownChange('medications');
+    });
+
+    // Event listener for Therapies dropdown
+    $('#therapies').on('changed.bs.select', function() {
+      handleDropdownChange('therapies');
+    });
+  });
   </script>
     <footer class="footer">
       <div class="container text-center">
