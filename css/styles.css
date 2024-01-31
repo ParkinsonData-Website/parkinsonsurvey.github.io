@@ -208,5 +208,15 @@ nav {
   vertical-align: middle;
   max-height: 80px; /* Adjust as needed */
 }
+.footer {
+  margin-top: 50px; /* Adjust the margin as needed */
+  padding: 20px 0;
+  background-color: #f5f5f5; /* Choose a background color that fits your design */
+  color: #333; /* Text color */
+}
+
+.footer p {
+  margin-bottom: 0;
+}
 
 
