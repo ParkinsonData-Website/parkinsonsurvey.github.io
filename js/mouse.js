@@ -307,7 +307,7 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
   ctx.font = "30px Arial";
   ctx.fillStyle = 'black';
   ctx.fillText("Start", window.innerWidth/2, 2*window.innerHeight/3-10); 
-  ctx.fillText("Finish", window.innerWidth/2+window.innerHeight/2, 2*window.innerHeight/3+75); 
+  ctx.fillText("Finish", window.innerWidth/2+window.innerHeight/2+2, 2*window.innerHeight/3+90); 
 
 
   // level 3: tracing a spiral
@@ -410,10 +410,20 @@ let dotInterval = 500; // Interval between dots in milliseconds
 
 // Function to generate a random position within the canvas
 function getRandomPosition() {
-  let x = Math.random() * (canvas.width - 20) + 40; // 10 is margin
-  let y = Math.random() * (canvas.height - 20) + 40; // 10 is margin
+  // Define the margin
+  const margin = 150;
+
+  // Calculate the maximum x and y values inside the margin
+  const maxX = canvas.width - margin * 2;
+  const maxY = canvas.height - margin * 2;
+
+  // Generate random x and y positions within the margin boundaries
+  let x = Math.random() * maxX + margin;
+  let y = Math.random() * maxY + margin;
+
   return { x, y };
 }
+
 
 // Function to display a dot and record data
 function displayDot() {

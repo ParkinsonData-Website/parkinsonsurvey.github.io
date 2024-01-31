@@ -1,51 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <meta name="description" content="PD tests">
-    <title>PD tests - Information collection</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/utility.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/x-icon" href="pacman-favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Finlandica&display=swap" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-    <style>
-      .form-container {
-        background-color: #f0f0f0;
-        padding: 20px;
-        border-radius: 10px;
-      }
-      .question-label {
-        font-size: 1.4rem;
-        font-weight: bold;
-        text-align: left;
-        margin-bottom: 0.5rem;
-      }
-      .form-control, .btn-custom, .btn-lg {
-        font-size: 1.2rem;
-      }
-      .btn-custom {
-        background-color: rgb(9, 136, 240);
-        color: white;
-        padding: 0.75rem 1.5rem;
-      }
-      .btn-success {
-        background-color: darkgreen;
-      }
-      .button-group {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-      }
-    </style>
-  </head>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <meta name="description" content="PD tests">
+  <title>PD tests - Information collection</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/utility.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/x-icon" href="../assets/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Finlandica&display=swap" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+  <style>
+    .form-container {
+      background-color: #f0f0f0;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .question-label {
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-align: left;
+      margin-bottom: 0.5rem;
+    }
+    .form-control, .btn-custom, .btn-lg {
+      font-size: 1.2rem;
+    }
+    .btn-custom {
+      background-color: rgb(9, 136, 240);
+      color: white;
+      padding: 0.75rem 1.5rem;
+    }
+    .btn-success {
+      background-color: darkgreen;
+    }
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+  </style>
+</head>
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="#">Parkinson's Survey</a>
@@ -63,7 +64,6 @@
 
   <div class="container mt-5">
     <h1 class="text-center mb-4">Please enter your information below!</h1>
-    <h1 class="text-center mb-4"><b>This is a Practice and None of the informations willl be stored</b></h1>
 
     <div class="form-container">
       <form>
@@ -97,40 +97,42 @@
             <option value="Prefer not to specify">Prefer not to specify</option>
           </select>
         </div>
-       <!-- Medications Dropdown -->
-       <div class="form-group">
-        <label class="question-label">What Medications are you taking for Parkinson’s Treatment:</label>
-        <select multiple class="form-control selectpicker" id="medications" data-live-search="true">
-          <option value="Levodopa">Levodopa / Rytary / Sinemet / Duopa</option>
-          <option value="Dopamine Agonists">Dopamine Agonists (Ropinirole, Mirapexin, Apomorphine (Apokyn), Rotigotine (Neupro))</option>
-          <option value="MAO-B Inhibitors">MAO-B Inhibitors (Rasagiline(Zelapar), Selegiline(Neupro)(Azilect), Safinamide(Xadago))</option>
-          <option value="COMT inhibitors">COMT inhibitors: Entacapone (Comtan), Opicapone (Ongentys)</option>
-          <option value="Anticholinergics">Anticholinergics: Benztropine (Cogentin), Trihexyphenidyl</option>
-          <option value="Amantadine">Amantadine (Gocovri)</option>
-          <option value="A2A receptor antagonists">A2A receptor antagonists: Istradefylline (Nourianz)</option>
-          <option value="Nuplazid">Nuplazid (Pimavanserin)</option>
-          <option value="Botulinum Toxin Injections">Botulinum Toxin Injections</option>
-        </select>
-      </div>
+        <!-- Medications Dropdown -->
+        <div class="form-group">
+          <label class="question-label">What Medications are you taking for Parkinson’s Treatment:</label>
+          <select multiple class="form-control selectpicker" id="medications" data-live-search="true">
+            <option value="N/A" selected>N/A</option>
+            <option value="Levodopa">Levodopa / Rytary / Sinemet / Duopa</option>
+            <option value="Dopamine Agonists">Dopamine Agonists (Ropinirole, Mirapexin, Apomorphine (Apokyn), Rotigotine (Neupro))</option>
+            <option value="MAO-B Inhibitors">MAO-B Inhibitors (Rasagiline(Zelapar), Selegiline(Neupro)(Azilect), Safinamide(Xadago))</option>
+            <option value="COMT inhibitors">COMT inhibitors: Entacapone (Comtan), Opicapone (Ongentys)</option>
+            <option value="Anticholinergics">Anticholinergics: Benztropine (Cogentin), Trihexyphenidyl</option>
+            <option value="Amantadine">Amantadine (Gocovri)</option>
+            <option value="A2A receptor antagonists">A2A receptor antagonists: Istradefylline (Nourianz)</option>
+            <option value="Nuplazid">Nuplazid (Pimavanserin)</option>
+            <option value="Botulinum Toxin Injections">Botulinum Toxin Injections</option>
+          </select>
+        </div>
 
-      <!-- Alternative Therapies Dropdown -->
-      <div class="form-group">
-        <label class="question-label">What alternative treatments are you taking for for Parkinson's:</label>
-        <select multiple class="form-control selectpicker" id="therapies" data-live-search="true">
-          <option value="Deep brain stimulation">Deep brain stimulation</option>
-          <option value="MRgFUS">MRgFUS (MRI-guided focused ultrasound)</option>
-          <option value="Physical Therapy">Physical Therapy</option>
-          <option value="Speech Therapy">Speech Therapy (Lee Silverman Voice Treatment (LSVT))</option>
-        </select>
-        </select>
-      </div>
+        <!-- Alternative Therapies Dropdown -->
+        <div class="form-group">
+          <label class="question-label">What alternative treatments are you taking for for Parkinson's:</label>
+          <select multiple class="form-control selectpicker" id="therapies" data-live-search="true">
+            <option value="N/A" selected>N/A</option>
+            <option value="Deep brain stimulation">Deep brain stimulation</option>
+            <option value="MRgFUS">MRgFUS (MRI-guided focused ultrasound)</option>
+            <option value="Physical Therapy">Physical Therapy</option>
+            <option value="Speech Therapy">Speech Therapy (Lee Silverman Voice Treatment (LSVT))</option>
+          </select>
+          </select>
+        </div>
         <div class="form-group">
           <label class="question-label">How long ago did you take your last medication dosage? (in hours)</label>
           <input type="number" class="form-control" id="medicationTiming" placeholder="Enter hours" min="0">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" id="naCheckbox">
             <label class="form-check-label" for="naCheckbox">
-              N/A
+            <h4>N/A</h4>
             </label>
           </div>
         </div>
@@ -144,7 +146,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="question-label">Which is your dominant hand?</label>
+          <label class="question-label">Which is your dominant hand? (The one you use for tasks like Writing, Brushing, Cathcing a ball, etc.)</label>
           <div class="button-group">
             <button type="button" class="btn btn-custom" id="leftHandButton" onclick="storeHand('Left');">Left</button>
             <button type="button" class="btn btn-custom" id="rightHandButton" onclick="storeHand('Right');">Right</button>
@@ -177,9 +179,6 @@
     <button class="btn btn-success btn-verify" id='ttrs' onclick="commencetests();">This is correct, start test!</button>
     <button class="btn btn-danger btn-verify" onclick="closeverify();">Cancel</button>
   </div>
-
-  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
   <script src="../js/collector.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
   <script>

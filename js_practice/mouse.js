@@ -380,8 +380,17 @@ let dotInterval = 500; // Interval between dots in milliseconds
 
 // Function to generate a random position within the canvas
 function getRandomPosition() {
-  let x = Math.random() * (canvas.width - 20) + 40; // 10 is margin
-  let y = Math.random() * (canvas.height - 30) + 60; // 10 is margin
+  // Define the margin
+  const margin = 150;
+
+  // Calculate the maximum x and y values inside the margin
+  const maxX = canvas.width - margin * 2;
+  const maxY = canvas.height - margin * 2;
+
+  // Generate random x and y positions within the margin boundaries
+  let x = Math.random() * maxX + margin;
+  let y = Math.random() * maxY + margin;
+
   return { x, y };
 }
 
