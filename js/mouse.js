@@ -113,6 +113,8 @@ ctx.font = "30px Arial";
 ctx.fillStyle = 'black';
 ctx.fillText("Start", 100, window.innerHeight/2+wid-10); 
 ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10); 
+let windowHeight = window.innerHeight;
+let windowWidth = window.innerWidth;
 
 
 // level 1: tracing a straight line
@@ -121,7 +123,7 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
   while (true){
 
     // if the user's mouse enters the starting zone, start the timer and tracing
-    if (mousepos[0] > 100 && mousepos[0] < 120 && mousepos[1] > window.innerHeight/2-wid && mousepos[1] < window.innerHeight/2){
+    if (mousepos[0] > 100 && mousepos[0] < 120 && mousepos[1] > windowHeight/2-wid && mousepos[1] < windowHeight/2){
       started = true;
     }
 
@@ -135,7 +137,7 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
 
     // render the object starting from x coordinate = 100, going to 45 pixels from the end of the screen
     let i = 100;
-    while (i < window.innerWidth-45){
+    while (i < windowWidth-45){
       
       // define the color of this part of the object based on highligter position
       let d = Math.abs(i-highlighter);
@@ -147,7 +149,7 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
         // if the user has already hovered over this part (the maximum x value reached is > the current x value of rendering)
         
         // determine whether the mouse is inside the object or not
-        if (mousepos[1] > window.innerHeight/2-wid && mousepos[1] < window.innerHeight/2){
+        if (mousepos[1] > windowHeight/2-wid && mousepos[1] < windowHeight/2){
           // if so then make the onject black
           ctx.fillStyle = 'black';
           inside = true;
@@ -166,12 +168,12 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
       }
 
       // fill in a rectangle that is part of the whole object
-      ctx.fillRect(i,window.innerHeight/2-wid,2,wid);
+      ctx.fillRect(i,windowHeight/2-wid,2,wid);
       i += 1;
     }
 
     // calculate how far the mouse is from the centerline
-    let deviation = mousepos[1]-(window.innerHeight/2-wid/2);
+    let deviation = mousepos[1]-(windowHeight/2-wid/2);
 
     // calculate timestamp
     var endtime = new Date();
@@ -189,17 +191,21 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
     highlighter += 5;
 
     // if the highlighter has gone a lot beyond the end of the object, move it back to the start
-    if (highlighter > window.innerWidth*1.5){
+    if (highlighter > windowWidth*1.5){
       highlighter = 0;
     }
 
     // if the user has reached the end of the object, then they are finished. break.
-    if (maxx >= window.innerWidth-55){ // -45 is absolute finishing, but we have a bit of leeway
+    if (maxx >= windowWidth-55){ // -45 is absolute finishing, but we have a bit of leeway
       break;
     }
 
   await sleep(2);
   }
+
+windowHeight = window.innerHeight;
+windowWidth = window.innerWidth;
+wid = window.innerHeight/12;
 
   // update the displays
   document.getElementById('navbarTextContent').textContent = "Done!";
@@ -217,8 +223,8 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
   // redraw start and finish marking
   ctx.font = "30px Arial";
   ctx.fillStyle = 'black';
-  ctx.fillText("Start", 100, window.innerHeight/2+wid+window.innerHeight/5+30); 
-  ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid+window.innerHeight/5+30); 
+  ctx.fillText("Start", 100, windowHeight/2+ wid + windowHeight / 5+30); 
+  ctx.fillText("Finish", windowWidth-110, windowHeight/2+wid+windowHeight/5+30); 
 
   // level 2: tracing a sine wave
 
@@ -226,7 +232,7 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
   while (true){
 
     // if the user has entered starting zone, then start
-    if (mousepos[0] > 100 && mousepos[0] < 120 && mousepos[1] > Math.sin(120/60)*window.innerHeight/5+window.innerHeight/2 && mousepos[1] < Math.sin(100/60)*window.innerHeight/5+window.innerHeight/2+wid){
+    if (mousepos[0] > 100 && mousepos[0] < 120 && mousepos[1] > Math.sin(120/60)*windowHeight/5+windowHeight/2 && mousepos[1] < Math.sin(100/60)*windowHeight/5+windowHeight/2+wid){
       started = true;
     }
 
@@ -237,7 +243,7 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
 
     // render the object from x = 100 to x = 45 px from the end
     let i = 100;
-    while (i < window.innerWidth-45){
+    while (i < windowWidth-45){
       
       // decide color of this segment based on highlighter position
       let d = Math.abs(i-highlighter);
@@ -248,7 +254,7 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
       if (started && i < maxx){
        
         // turn segment black if the user is inside the object
-        if (mousepos[1] > Math.sin(mousepos[0]/60)*window.innerHeight/5+window.innerHeight/2 && mousepos[1] < Math.sin(mousepos[0]/60)*window.innerHeight/5+window.innerHeight/2+wid){
+        if (mousepos[1] > Math.sin(mousepos[0]/60)*windowHeight/5+windowHeight/2 && mousepos[1] < Math.sin(mousepos[0]/60)*windowHeight/5+windowHeight/2+wid){
           ctx.fillStyle = 'black';
           inside = true;
         } else {
@@ -262,7 +268,7 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
       }
 
       // render the segment
-      ctx.fillRect(i,Math.sin(i/60)*window.innerHeight/5+window.innerHeight/2,2,wid);
+      ctx.fillRect(i,Math.sin(i/60)*windowHeight/5+windowHeight/2,2,wid);
       i += 1;
     }
     
@@ -279,17 +285,21 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
 
     // update highlighter, and reset it if it has gone too far
     highlighter += 5;
-    if (highlighter > window.innerWidth*1.5){
+    if (highlighter > windowWidth*1.5){
       highlighter = 0;
     }
 
     // if the user has finished tracing, then break
-    if (maxx >= window.innerWidth-55){ // -45 is absolute finishing, but we have a bit of leeway
+    if (maxx >= windowWidth-55){ // -45 is absolute finishing, but we have a bit of leeway
       break;
     }
 
     await sleep(2);
   }
+
+windowHeight = window.innerHeight;
+windowWidth = window.innerWidth;
+wid = window.innerHeight/12;
 
   // update the display
   document.getElementById('navbarTextContent').textContent = "Done!";
@@ -306,19 +316,19 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
   // redraw start and finish markings
   ctx.font = "30px Arial";
   ctx.fillStyle = 'black';
-  ctx.fillText("Start", window.innerWidth/2, 2*window.innerHeight/3-10); 
-  ctx.fillText("Finish", window.innerWidth/2+window.innerHeight/2+2, 2*window.innerHeight/3+90); 
+  ctx.fillText("Start", windowWidth/2, 2*windowHeight/3-10); 
+  ctx.fillText("Finish", windowWidth/2+windowHeight/2+2, 2*windowHeight/3+140); 
 
 
   // level 3: tracing a spiral
   while (true){
 
     // clear the screen
-    ctx.clearRect(0,0,window.innerWidth,window,innerHeight);
+    //ctx.clearRect(0,0,windowWidth,windowHeight);
 
     // set the min and max radii
-    let minrad = window.innerHeight/30;
-    let maxrad = window.innerHeight/2;
+    let minrad = windowHeight/30;
+    let maxrad = windowHeight/2;
 
     // is the user tracing inside the object or not
     let inside = false;
@@ -336,7 +346,7 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
       ctx.lineWidth = wid;
 
       // if user has entered starting zone, then start
-      if (window.innerWidth/2 < mousepos[0] && window.innerWidth/2+wid > mousepos[0] && 2*window.innerHeight/3 < mousepos[1] && 2*window.innerHeight/3+wid > mousepos[1]){
+      if (windowWidth/2 < mousepos[0] && windowWidth/2+wid > mousepos[0] && 2*windowHeight/3 < mousepos[1] && 2*windowHeight/3+wid > mousepos[1]){
         started = true;
       }
 
@@ -344,7 +354,7 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
       let thisrad = (maxrad-minrad)*(i/360)+minrad;
 
       // figure out whether the mouse is inside the region right now or not
-      if (mousepos[0] > thisrad*Math.cos((Math.PI/180)*i)+window.innerWidth/2 && mousepos[0] < thisrad*Math.cos((Math.PI/180)*i)+window.innerWidth/2+wid && mousepos[1] > thisrad*Math.sin((Math.PI/180)*i)+2*window.innerHeight/3 && mousepos[1] < thisrad*Math.sin((Math.PI/180)*i)+2*window.innerHeight/3+wid){
+      if (mousepos[0] > thisrad*Math.cos((Math.PI/180)*i)+windowWidth/2 && mousepos[0] < thisrad*Math.cos((Math.PI/180)*i)+windowWidth/2+wid && mousepos[1] > thisrad*Math.sin((Math.PI/180)*i)+2*windowHeight/3 && mousepos[1] < thisrad*Math.sin((Math.PI/180)*i)+2*windowHeight/3+wid){
         inside = true;
 
         // if the mouse is inside, then set the maximum angle holder variable as the current angle
@@ -368,7 +378,7 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
       }
 
       // render this segment
-      ctx.fillRect(thisrad*Math.cos((Math.PI/180)*i)+window.innerWidth/2,thisrad*Math.sin((Math.PI/180)*i)+2*window.innerHeight/3,wid,wid);
+      ctx.fillRect(thisrad*Math.cos((Math.PI/180)*i)+windowWidth/2,thisrad*Math.sin((Math.PI/180)*i)+2*windowHeight/3,wid,wid);
       
       i += 1;
     }
