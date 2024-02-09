@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Test</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/utility.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-icon" href="../assets/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Finlandica&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+            background: #f0f0f0;
+            position: absolute;
+            top: 100px; /* Adjust based on nav bar height */
+            left: 0;
+            width: 100%;
+            height: calc(100% - 100px); /* Adjust height based on nav bar */
+        }
+        #instruction-overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #instruction-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="instruction-overlay">
+        <div id="instruction-content">
+            <h2>Instructions</h2>
+            <p>This section contains a memory test. You will be asked to remember and identify the positions of numbered boxes.</p>
+            <img src="../assets/memorytest.gif" alt="Instructions Image" class="img-fluid" width="130%">
+            <br>
+            <button class="btn btn-primary" onclick="startMemoryTest()">Start</button>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #13512f;">
+        <div class="container-fluid justify-content-center">
+            <img src="../assets/logo.png" alt="Logo" style="height: 70px; margin-right: 10px;">
+            <span class="nav-item nav-link h1" id="navbarTextContent">Working Memory Test In Progress</span>
+        </div>
+    </nav>
+
+    <canvas id="memoryCanvas"></canvas>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+    <script src="../js/memory.js"></script>
+    
+    <div class="progress fixed-bottom" style="height: 40px;">
+        <div class="progress-bar" role="progressbar" style="width: 0%;" id="progressBar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+          <span id="progressText">0% of the survey completed</span>
+        </div>
+      </div>
+</body>
+</html>

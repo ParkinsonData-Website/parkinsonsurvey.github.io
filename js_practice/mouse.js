@@ -173,7 +173,7 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
 
   // update the displays
   document.getElementById('navbarTextContent').textContent = "Done!";
-  updateProgressBar(1,8);
+  updateProgressBar(1,9);
   await sleep(1000);
   document.getElementById('navbarTextContent').textContent = "Mouse Test 2: hover over the object in a rightward direction";
 
@@ -263,7 +263,7 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
 
   // update the display
   document.getElementById('navbarTextContent').textContent = "Done!";
-  updateProgressBar(2,8);
+  updateProgressBar(2,9);
   await sleep(1000);
   document.getElementById('navbarTextContent').textContent = "Mouse Test 3: hover over the object in a clockwise direction";
 
@@ -369,7 +369,7 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
   }
 
   document.getElementById('navbarTextContent').textContent = "Done!";
-  updateProgressBar(3,8);
+  updateProgressBar(3,9);
   await sleep(1000);
   document.getElementById('navbarTextContent').textContent = "Mouse Test 4: Click on the Red Dots as they appear on screen";
   await sleep(1000);
@@ -433,7 +433,7 @@ function endGame() {
   // once user has finished this level, send the data
   document.getElementById('navbarTextContent').textContent = "Sending data...";
   senddata();
-  updateProgressBar(4,8);
+  updateProgressBar(4,9);
 }
 
 // Function to send game data to Firebase

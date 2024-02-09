@@ -70,12 +70,14 @@
         <div class="form-group">
           <label class="question-label">What is your age?</label>
           <input type="text" class="form-control" id="age" value="65">
+          <div class="text-danger" id="ageError"></div>
         </div>
         <div class="form-group">
           <label class="question-label">What is your Height (in cm)?</label>
           <br>
           <input type="number" class="form-control" id="height" name="height" value = "170">
-      </div>
+          <div class="text-danger" id="heightError"></div>
+        </div>
 
         <div class="form-group">
           <label class="question-label">What is your Gender?</label>
@@ -84,6 +86,7 @@
             <option value="Female">Female</option>
             <option value="Other">Other</option>
           </select>
+          <div class="text-danger" id="genderError"></div>
         </div>
 
         <div class="form-group">
@@ -96,6 +99,7 @@
             <option value="White">White</option>
             <option value="Prefer not to specify">Prefer not to specify</option>
           </select>
+          <div class="text-danger" id="raceError"></div>
         </div>
         <!-- Medications Dropdown -->
         <div class="form-group">
@@ -112,6 +116,7 @@
             <option value="Nuplazid">Nuplazid (Pimavanserin)</option>
             <option value="Botulinum Toxin Injections">Botulinum Toxin Injections</option>
           </select>
+          <div class="text-danger" id="medicationsError"></div>
         </div>
 
         <!-- Alternative Therapies Dropdown -->
@@ -124,7 +129,7 @@
             <option value="Physical Therapy">Physical Therapy</option>
             <option value="Speech Therapy">Speech Therapy (Lee Silverman Voice Treatment (LSVT))</option>
           </select>
-          </select>
+          <div class="text-danger" id="therapiesError"></div>
         </div>
         <div class="form-group">
           <label class="question-label">How long ago did you take your last medication dosage? (in hours)</label>
@@ -135,26 +140,32 @@
               <h4>N/A</h4>
             </label>
           </div>
+          <div class="text-danger" id="medicationTimingError"></div>
         </div>
         
+        <!-- Parkinson's Status -->
         <div class="form-group">
           <label class="question-label">Do you have Parkinsons?</label>
-          <div class="button-group">
-            <button type="button" class="btn btn-success btn-custom" id="yesButton" onclick="storestatus('pd');">Yes</button>
-            <button type="button" class="btn btn-success btn-custom" id="noButton" onclick="storestatus('nonpd');">No</button>
-            <button type="button" class="btn btn-success btn-custom" id="suspectedpd" onclick="storestatus('suspectedpd')">Suspected but not Diagnosed</button>
+          <div class="button-group" id="parkinsonsStatus">
+            <button type="button" class="btn btn-success btn-custom" data-value="yes">Yes</button>
+            <button type="button" class="btn btn-success btn-custom" data-value="no">No</button>
+            <button type="button" class="btn btn-success btn-custom" data-value="suspected">Suspected but not Diagnosed</button>
           </div>
+          <div class="text-danger" id="parkinsonsError"></div>
         </div>
+
+        <!-- Dominant Hand -->
         <div class="form-group">
-          <label class="question-label">Which is your dominant hand? (The one you use for tasks like Writing, Brushing, Cathcing a ball, etc.)</label>
-          <div class="button-group">
-            <button type="button" class="btn btn-success btn-custom" id="leftHandButton" onclick="storeHand('Left');">Left</button>
-            <button type="button" class="btn btn-success btn-custom" id="rightHandButton" onclick="storeHand('Right');">Right</button>
+          <label class="question-label">Which is your dominant hand?</label>
+          <div class="button-group" id="dominantHand">
+            <button type="button" class="btn btn-success btn-custom" data-value="left">Left</button>
+            <button type="button" class="btn btn-success btn-custom" data-value="right">Right</button>
           </div>
+          <div class="text-danger" id="handError"></div>
         </div>
+
         <div class="text-center">
-          <br>
-          <button type="button" class="btn btn-primary btn-lg btn-custom" onclick="startverify();">Start the Survey</button>
+          <button type="button" class="btn btn-primary btn-lg btn-custom" id="submitForm">Start the Survey</button>
         </div>
       </form>
     </div>
@@ -218,6 +229,108 @@
       handleDropdownChange('therapies');
     });
   });
+  document.addEventListener('DOMContentLoaded', function() {
+  // Initialize selectpicker
+  $('.selectpicker').selectpicker();
+
+  // Form submission handler
+  document.getElementById('submitForm').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent form submission
+    if (validateForm()) {
+      console.log('Form is valid');
+      startverify();
+    }
+  });
+
+  // Button group selection for Parkinson's and Dominant Hand
+  document.querySelectorAll('.button-group button').forEach(function(button) {
+    button.addEventListener('click', function() {
+      let group = this.parentElement.id;
+      document.querySelectorAll('#' + group + ' button').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      // Clear error message
+      document.getElementById(group + 'Error').textContent = '';
+    });
+  });
+});
+
+function validateForm() {
+  let isValid = true;
+
+  // Validate Age
+  if (!$('#age').val().trim()) {
+    $('#ageError').text('Please enter your age.');
+    isValid = false;
+  } else {
+    $('#ageError').text('');
+  }
+
+  // Validate Height
+  if (!$('#height').val().trim()) {
+    $('#heightError').text('Please enter your height.');
+    isValid = false;
+  } else {
+    $('#heightError').text('');
+  }
+
+  // Validate Gender
+  if ($('#gender').val() === '') {
+    $('#genderError').text('Please select your gender.');
+    isValid = false;
+  } else {
+    $('#genderError').text('');
+  }
+
+  // Validate Race/Ethnicity
+  if ($('#race').val() === '') {
+    $('#raceError').text('Please select your race/ethnicity.');
+    isValid = false;
+  } else {
+    $('#raceError').text('');
+  }
+
+  // Validate Medications
+  if ($('#medications').val() === null || $('#medications').val().length === 0) {
+    $('#medicationsError').text('Please select your medications.');
+    isValid = false;
+  } else {
+    $('#medicationsError').text('');
+  }
+
+  // Validate Therapies
+  if ($('#therapies').val() === null || $('#therapies').val().length === 0) {
+    $('#therapiesError').text('Please select your therapies.');
+    isValid = false;
+  } else {
+    $('#therapiesError').text('');
+  }
+
+  // Validate Last Medication Timing
+  if (!$('#naCheckbox').is(':checked') && !$('#medicationTiming').val().trim()) {
+    $('#medicationTimingError').text('Please enter the last medication timing.');
+    isValid = false;
+  } else {
+    $('#medicationTimingError').text('');
+  }
+
+  // Validate Parkinson's Status
+  if ($('#parkinsonsStatus .active').length === 0) {
+    $('#parkinsonsError').text('Please select your Parkinson’s status.');
+    isValid = false;
+  } else {
+    $('#parkinsonsError').text('');
+  }
+
+  // Validate Dominant Hand
+  if ($('#dominantHand .active').length === 0) {
+    $('#handError').text('Please select your dominant hand.');
+    isValid = false;
+  } else {
+    $('#handError').text('');
+  }
+
+  return isValid;
+}
   </script>
     <footer class="footer">
       <div class="container text-center">

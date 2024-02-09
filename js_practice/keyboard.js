@@ -122,7 +122,7 @@ function dispstats2() {
 function hidestats2() {
   $('#statsModal').modal('hide');
   $('#statsModal').on('hidden.bs.modal', function (e) {
-    window.location.href = '../src_practice/complete.html';
+    window.location.href = '../src_practice/memorytest.html';
   });
 }
 
