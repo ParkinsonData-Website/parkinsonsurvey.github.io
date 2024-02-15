@@ -407,23 +407,27 @@ function displayDot() {
   // Draw the dot
   ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous dot
   ctx.beginPath();
-  ctx.arc(position.x, position.y, 40, 0, 2 * Math.PI); // 10 is dot radius
+  ctx.arc(position.x, position.y, 40, 0, 2 * Math.PI); // 40 is dot radius
   ctx.fillStyle = 'red';
   ctx.fill();
 
-  // Event listener for click
-  canvas.onclick = function(event) {
+  // Defines the click handler as a separate function so it can be removed later
+  function handleDotClick(event) {
     let clickTime = new Date().getTime();
     let reactionTime = clickTime - appearanceTime;
     let distance = Math.sqrt(Math.pow(event.clientX - position.x, 2) + Math.pow(event.clientY - position.y, 2));
 
-    // Check if the dot was clicked (within a certain radius)
-    if (distance <= 40) { // 10 is dot radius
+    // Checks if the dot was clicked (within a certain radius)
+    if (distance <= 40) { // 40 is dot radius
       gameData.push({ reactionTime });
       dotCount--;
-      setTimeout(displayDot, dotInterval); // Display next dot after interval
+      canvas.removeEventListener('click', handleDotClick); // Removes the event listener after a click
+      setTimeout(displayDot, dotInterval); // Displays next dot after interval
     }
   };
+
+  // Add the event listener for click
+  canvas.addEventListener('click', handleDotClick);
 }
 
 // Function to end the game and send data
