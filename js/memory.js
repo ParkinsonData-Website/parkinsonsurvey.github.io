@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateNavbar("Incorrect. Moving on...", "red");
             }
 
-            setTimeout(() => updateNavbar("Memory Test in Progress", "white"), 3000);
+            setTimeout(() => updateNavbar("Memorize the Locations of the Numbers Below", "white"), 3000);
 
             totalNumbersAsked++;
             if (totalNumbersAsked < numBoxes) {

@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Calculate x position to center the text box within the canvas
         let centerXPosition = (canvas.width / 2) - (fixedTextBoxWidth / 2);
     
-        ctx.fillStyle = '#f0f0f0';
+        ctx.fillStyle = '#ffffff';
         // Draw the background rectangle for the text, ensuring it's centered
         ctx.fillRect(centerXPosition - padding, centerYPosition, fixedTextBoxWidth + (padding * 2), textHeight);
         ctx.fillStyle = '#000';
@@ -109,9 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.fillText(text, canvas.width / 2, centerYPosition + (textHeight / 2) - 5);
     }
     
-    
-    
-
     function updateNavbar(message, color) {
         navbarTextContent.textContent = message;
         navbarTextContent.style.color = color;
@@ -178,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateNavbar("Incorrect. Moving on...", "red");
             }
 
-            setTimeout(() => updateNavbar("Memory Test in Progress", "white"), 3000);
+            setTimeout(() => updateNavbar("Memorize the Locations of the Numbers Below", "white"), 3000);
 
             totalNumbersAsked++;
             if (totalNumbersAsked < numBoxes) {
@@ -195,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function sendResultsToFirebase() {
             updateNavbar("Results sent. Redirecting...", "white");
             setTimeout(() => {
-                window.location.href = '../src/complete.html';
+                window.location.href = '../src_practice/complete.html';
             }, 2000);
     }
 
