@@ -95,7 +95,6 @@ function startverify(){
 
   let selectedMedications = $('#medications').val() || [];
   let selectedTherapies = $('#therapies').val() || [];
-  // send the data to the database
   senddata(selectedMedications, selectedTherapies);
   // make the background blocker and verification dialogue visible
   let blocker = document.getElementById('blocker');
@@ -171,29 +170,29 @@ async function senddata(medications, therapies) {
     deviceType: deviceType,
     dominantHand: dominantHand
   };
-
-  // Use the user ID as the document ID
+  console.log('Sending data to Firestore', data);
   db.collection("testData").doc(userid).set(data, { merge: true })
-  .then(() => {
-      console.log("Document updated for User ID: ", userid);
-    })
-    .catch((error) => {
-      console.error("Error writing document: ", error);
-    });
+      .then(() => {
+          console.log("Document successfully updated");
+      })
+      .catch((error) => {
+          console.error("Error updating document:", error);
+      });
+  
 }
 
 
 // redirect user to the mouse test after they verify data
-function commencetests() {
+async function commencetests() {
+  console.log("Commence Tests is called");
+
   let selectedMedications = $('#medications').val() || [];
   let selectedTherapies = $('#therapies').val() || [];
 
-  // Debugging: Log the selected options
   console.log("Selected Medications: ", selectedMedications);
   console.log("Selected Therapies: ", selectedTherapies);
-
-  senddata(selectedMedications, selectedTherapies);
 
   document.getElementById('ttrs').textContent = "Launching...";
   window.open('../src/mouse.html?' + theid, '_self');
 }
+
