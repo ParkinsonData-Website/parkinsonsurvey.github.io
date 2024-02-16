@@ -175,6 +175,17 @@ nav {
   max-width: 60%; /* Image will not exceed the container's width */
   height: auto; /* Maintain aspect ratio */
 }
+#instruction-overlay #instruction-content ul {
+  list-style-type: disc; /* or other style like circle, square, etc. */
+  margin-left: 20px; /* Adjust based on your layout */
+  padding-left: 0;
+}
+
+#instruction-overlay #instruction-content li {
+  text-align: left; /* Ensure text alignment is consistent */
+  margin-left: 0; /* Adjust as needed */
+}
+
 
 /* Custom Navbar Styles */
 .navbar .container-fluid {
