@@ -143,28 +143,29 @@ document.addEventListener('DOMContentLoaded', function() {
         boxes.forEach(box => drawBox(box.x, box.y));
     
         if (totalNumbersAsked < numBoxes) {
-            currentNumberToFind = totalNumbersAsked + 1;
+            currentNumberToFind = totalNumbersAsked + 1; // This sets up the next number to find
             setTimeout(() => {
                 displayQuestionText(`Where was ${currentNumberToFind}? Click on the box.`);
                 startTime = new Date().getTime();
             }, 1000); 
-            totalNumbersAsked++;
+            // Removed totalNumbersAsked++ from here
         } else {
             updateProgressBar(9, 9);
             sendResultsToFirebase();
         }
     }
+    
 
     function checkAnswer(x, y) {
         const clickedBox = boxes.find(box => 
             x >= box.x - boxSize / 2 && x <= box.x + boxSize / 2 &&
             y >= box.y - boxSize / 2 && y <= box.y + boxSize / 2
         );
-
+    
         if (clickedBox) {
             let endTime = new Date().getTime();
             times.push(endTime - startTime);
-
+    
             if (clickedBox.number === currentNumberToFind) {
                 correctClicks++;
                 drawBox(clickedBox.x, clickedBox.y, clickedBox.number.toString(), 'correct');
@@ -174,10 +175,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 drawBox(clickedBox.x, clickedBox.y, clickedBox.number.toString(), 'wrong');
                 updateNavbar("Incorrect. Moving on...", "red");
             }
-
+    
             setTimeout(() => updateNavbar("Memorize the Locations of the Numbers Below", "white"), 3000);
-
-            totalNumbersAsked++;
+    
+            totalNumbersAsked++; // Keep this increment
+            console.log(`Total numbers asked: ${totalNumbersAsked}, Num boxes: ${numBoxes}`);
+    
             if (totalNumbersAsked < numBoxes) {
                 setTimeout(() => {
                     displayBoxes();
@@ -188,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
+    
 
     function sendResultsToFirebase() {
             updateNavbar("Results sent. Redirecting...", "white");
