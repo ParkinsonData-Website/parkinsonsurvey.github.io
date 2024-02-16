@@ -33,25 +33,23 @@ function detectDeviceType() {
 
 // do the interactivity for the pd status selector
 function storestatus(status) {
+  pd_status = status; // Update the global variable
   let yesButton = document.getElementById('yesButton');
   let noButton = document.getElementById('noButton');
-  let suspectedButton = document.getElementById('suspectedpd');
+  let suspectedButton = document.getElementById('suspectedButton');
 
-  // Remove the btn-success class from all buttons
+  // Remove the 'btn-success' class from all buttons
   yesButton.classList.remove('btn-success');
   noButton.classList.remove('btn-success');
   suspectedButton.classList.remove('btn-success');
 
-  // Add the btn-success class to the clicked button and update pd_status
+  // Add the 'btn-success' class to the clicked button
   if (status === 'pd') {
-    yesButton.classList.add('btn-success');
-    pd_status = 'pd';
+      yesButton.classList.add('btn-success');
   } else if (status === 'suspectedpd') {
-    suspectedButton.classList.add('btn-success');
-    pd_status = 'suspectedpd';
-  } else {
-    noButton.classList.add('btn-success');
-    pd_status = 'nonpd';
+      suspectedButton.classList.add('btn-success');
+  } else if (status === 'nonpd') {
+      noButton.classList.add('btn-success');
   }
 }
 
