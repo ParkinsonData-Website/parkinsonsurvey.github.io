@@ -306,8 +306,8 @@ ctx.fillText("Finish", window.innerWidth-110, window.innerHeight/2+wid-10);
   // redraw start and finish markings
   ctx.font = "30px Arial";
   ctx.fillStyle = 'black';
-  ctx.fillText("Start", window.innerWidth/2, 2*window.innerHeight/3-10); 
-  ctx.fillText("Finish", window.innerWidth/2+window.innerHeight/2+2, 2*window.innerHeight/3+90); 
+  ctx.fillText("Start", window.innerWidth/2+50, 2*window.innerHeight/3-10); 
+  ctx.fillText("Finish", window.innerWidth/2+window.innerHeight/2-10, 2*window.innerHeight/3+170); 
 
 
   // level 3: tracing a spiral
