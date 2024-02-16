@@ -147,9 +147,9 @@
         <div class="form-group">
           <label class="question-label">Do you have Parkinsons?</label>
           <div class="button-group" id="parkinsonsStatus">
-            <button type="button" class="btn btn-success btn-custom" data-value="yes">Yes</button>
-            <button type="button" class="btn btn-success btn-custom" data-value="no">No</button>
-            <button type="button" class="btn btn-success btn-custom" data-value="suspected">Suspected but not Diagnosed</button>
+            <button type="button" class="btn btn-custom" id="yesButton" onclick="storestatus('pd')">Yes</button>
+            <button type="button" class="btn btn-custom" id="noButton" onclick="storestatus('nonpd')">No</button>
+            <button type="button" class="btn btn-custom" id="suspectedButton" onclick="storestatus('suspectedpd')">Suspected but not Diagnosed</button>            
           </div>
           <div class="text-danger" id="parkinsonsError"></div>
         </div>
@@ -158,8 +158,8 @@
         <div class="form-group">
           <label class="question-label">Which is your dominant hand?</label>
           <div class="button-group" id="dominantHand">
-            <button type="button" class="btn btn-success btn-custom" data-value="left">Left</button>
-            <button type="button" class="btn btn-success btn-custom" data-value="right">Right</button>
+            <button type="button" class="btn btn-custom" id="leftHandButton" onclick="storeHand('Left')">Left</button>
+            <button type="button" class="btn btn-custom" id="rightHandButton" onclick="storeHand('Right')">Right</button>            
           </div>
           <div class="text-danger" id="handError"></div>
         </div>
