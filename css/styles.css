@@ -186,13 +186,18 @@ body.modal-open {
   background: white;
   padding: 20px;
   border-radius: 10px;
-  max-width: auto; /* Prevents the modal from being too wide on small screens */
-  max-height: auto; /* Prevents the modal from being too tall on small screens */
-  overflow-y: auto; /* Allows scrolling inside the modal if content is too long */
+  max-width: 90%; /* Keep this to prevent the modal from being too wide */
+  max-height: 90vh; /* Use vh unit to ensure it is relative to the viewport height */
+  overflow-y: auto; /* Ensure the content inside can scroll if it exceeds the max height */
+  position: relative; /* Allows scrolling inside the modal if content is too long */
+  transform: translate(0, -50%);
+  top: 50%;
+  position: absolute;
+  font-size: 0.9rem; /* Default font size for the modal content */
 }
 
 #instruction-content img {
-  max-width: 60%; /* Ensures the image is not wider than the modal */
+  max-width: 40%; /* Ensures the image is not wider than the modal */
   height: auto; /* Maintain aspect ratio */
 }
 
