@@ -106,12 +106,18 @@ nav {
   top: 20%;
   border: 3px solid rgb(2, 117, 216);
   border-radius: 15px;
+  overflow-y: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for pop-up */
   padding: 20px;
   margin: auto;
   background: rgba(255,255,255,0.9);
   text-align: center;
   display: none;
+}
+@media (max-height: 600px) {
+  .largenotif {
+    max-height: 80%; /* Reduce the maximum height on smaller screens */
+  }
 }
 
 .blocker{
