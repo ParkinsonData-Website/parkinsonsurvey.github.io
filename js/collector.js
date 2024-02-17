@@ -91,7 +91,7 @@ function storeHand(hand) {
 
 // when the user clicks start open verification window and save status
 function startverify(){
-
+  document.body.classList.add('modal-open');
   let selectedMedications = $('#medications').val() || [];
   let selectedTherapies = $('#therapies').val() || [];
   senddata(selectedMedications, selectedTherapies);
@@ -128,6 +128,7 @@ function startverify(){
 
 // close the verification dialogue if user wants to change anything
 function closeverify(){
+  document.body.classList.remove('modal-open');
   let blocker = document.getElementById('blocker');
   let verify = document.getElementById('verify');
   blocker.style.display = 'none';

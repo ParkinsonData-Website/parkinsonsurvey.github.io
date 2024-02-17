@@ -98,39 +98,47 @@ nav {
   background-color: rgb(0, 80, 180); 
 }
 
-.largenotif{
+.largenotif {
   position: fixed;
-  width: auto;
-  height: auto;
-  left: 35%;
-  top: 20%;
+  width: auto; /* Adjust based on preference */
+  max-width: 600px; /* Maximum width of the modal */
+  max-height: 80%; /* Maximum height of the modal */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   border: 3px solid rgb(2, 117, 216);
   border-radius: 15px;
-  overflow-y: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for pop-up */
+  overflow-y: auto; /* Enable scrolling */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 20px;
-  margin: auto;
-  background: rgba(255,255,255,0.9);
-  text-align: center;
-  display: none;
-}
-@media (max-height: 600px) {
-  .largenotif {
-    max-height: 80%; /* Reduce the maximum height on smaller screens */
-  }
+  background: rgba(255, 255, 255, 0.9);
+  display: none; /* Only show when needed */
+  z-index: 1050; /* Ensure it's above other content */
+  text-align: center; /* Center the content */
 }
 
-.blocker{
+.blocker {
   position: fixed;
   width: 100%;
   height: 100%;
-  left: 0px;
-  top: 0px;
-  background: rgba(0,0,0,0.4);
-  display: none;
-  opacity: 0;
-  transition: opacity 0.2s;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none; /* Only show when modal is active */
+  z-index: 1040; /* Immediately below the modal for overlay effect */
 }
+
+@media screen and (max-height: 600px) {
+  .largenotif {
+    max-height: 75%; /* Adjust max height for very small screens */
+  }
+}
+
+/* Disable body scroll when modal is active */
+body.modal-open {
+  overflow: hidden;
+}
+
 
 .largenotif h2 {
   color: #333333; /* Dark text for heading */
@@ -178,13 +186,13 @@ nav {
   background: white;
   padding: 20px;
   border-radius: 10px;
-  max-width: 90%; /* Prevents the modal from being too wide on small screens */
-  max-height: 90%; /* Prevents the modal from being too tall on small screens */
+  max-width: auto; /* Prevents the modal from being too wide on small screens */
+  max-height: auto; /* Prevents the modal from being too tall on small screens */
   overflow-y: auto; /* Allows scrolling inside the modal if content is too long */
 }
 
 #instruction-content img {
-  max-width: 100%; /* Ensures the image is not wider than the modal */
+  max-width: 60%; /* Ensures the image is not wider than the modal */
   height: auto; /* Maintain aspect ratio */
 }
 
