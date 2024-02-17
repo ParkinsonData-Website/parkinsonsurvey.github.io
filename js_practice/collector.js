@@ -79,10 +79,9 @@ function storeHand(hand) {
 
 // when the user clicks start open verification window and save status
 function startverify(){
-
+  document.body.classList.add('modal-open');
   let selectedMedications = $('#medications').val() || [];
   let selectedTherapies = $('#therapies').val() || [];
-  // send the data to the database
   senddata(selectedMedications, selectedTherapies);
   // make the background blocker and verification dialogue visible
   let blocker = document.getElementById('blocker');
@@ -117,12 +116,24 @@ function startverify(){
 
 // close the verification dialogue if user wants to change anything
 function closeverify(){
+  document.body.classList.remove('modal-open');
   let blocker = document.getElementById('blocker');
   let verify = document.getElementById('verify');
   blocker.style.display = 'none';
   blocker.style.opacity = 0;
   verify.style.display = 'none';
   $('.selectpicker').selectpicker('show');
+}
+// Function to get selected options from a multi-select dropdown
+function getSelectedOptions(selectId) {
+  let select = document.getElementById(selectId);
+  let selected = [];
+  for (let option of select.options) {
+    if (option.selected) {
+      selected.push(option.value);
+    }
+  }
+  return selected;
 }
 
 
