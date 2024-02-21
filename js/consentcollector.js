@@ -66,7 +66,7 @@ function storeConsent(name, signature, date, consentGiven) {
     })
     .then(() => {
         console.log("Document successfully updated");
-        window.open('../src/collectinfo.html?');
+        window.location.href = '../src/collectinfo.html';
     })
     .catch((error) => {
         console.error("Error updating document:", error);
