@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayQuestionText(text) {
-        const fixedTextBoxWidth = 300; // Fixed width for the text box
-        let fontSize = 30; // Initial font size
+        const fixedTextBoxWidth = 250; // Fixed width for the text box
+        let fontSize = 25; // Initial font size
         ctx.font = `bold ${fontSize}px Arial`;
         let textWidth = ctx.measureText(text).width;
     
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             textWidth = ctx.measureText(text).width; // Recalculate text width
         }
     
-        let padding = 20;
+        let padding = 0;
         let textHeight = fontSize + 10 * 2; // Text height + padding
         let centerYPosition = (canvas.height / 2) - (textHeight / 2);
     
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayBoxes() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const radius = Math.min(canvas.width, canvas.height - marginBottom) / 3;
+        const radius = Math.min(canvas.width, canvas.height - marginBottom) / 2.75;
         const angleStep = (2 * Math.PI) / numBoxes;
         boxes = [];
         let randomNumbers = getRandomNumbers(numBoxes);
