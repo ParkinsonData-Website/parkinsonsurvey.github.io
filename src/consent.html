@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>PD Survey - Consent Form</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/utility.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/x-icon" href="pacman-favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Finlandica&display=swap" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .form-container {
+        background-color: #f0f0f0;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+    .question-label {
+        font-size: 1.4rem;
+        font-weight: bold;
+        text-align: left;
+        margin-bottom: 0.5rem;
+    }
+    .form-control, .btn-custom, .btn-lg {
+        font-size: 1.2rem;
+    }
+    .btn-custom {
+        background-color: rgb(9, 136, 240);
+        color: white;
+        padding: 0.75rem 1.5rem;
+    }
+    .btn-success {
+        background-color: darkgreen;
+    }
+    .button-group {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+    .navbar {
+        background-color: #13512f !important;
+    }
+    .consent-form {
+        margin-bottom: 20px;
+    }
+    .checkbox-container {
+    display: flex;
+    align-items: center; /* Aligns the checkbox and label vertically */
+    margin-left: 1rem; /* Adjusts the position of the checkbox from the left */
+}
+
+.form-text.text-danger {
+    display: block; /* Ensures that the error message takes up the full width */
+    margin-top: 0.25rem; /* Adds a little space between the input and the error message */
+}
+
+</style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
+    <a class="navbar-brand" href="#">Parkinson's Survey</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="../src/index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../src/about.html">About</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+    <div class="container mt-3">
+        <div class="card">
+        <div class="card-body">
+            <div class="text-center">
+                <p> <h2>Informed Consent Form </h2></p>
+            </div>
+                <p>Aloha! You are being asked to participate in a research study conducted by Dr. Peter Washington, a faculty member from the Computer Science Department of the University of Hawai’i. We will describe this study to you and answer any of your questions. </p>
+            <div class="text-center">
+                <h2 class="mb-3">Parkinson's Disease Detection using Keyboard Strokes</h2>
+            </div>  
+                <h3>Principal Investigator:</h3>
+                <p class="card-text">
+                    Peter Washington, PhD<br>
+                    Assistant Professor<br>
+                    Information and Computer Sciences<br>
+                    University of Hawaii at Manoa<br>
+                    Email: <a href="mailto:pyw@hawaii.edu">pyw@hawaii.edu</a><br>
+                    Phone: 512-680-0926
+                </p>
+                <p>You may contact the UH Human Studies Program at 808.956.5007 or uhirb@hawaii.edu. to discuss problems, concerns and questions; obtain information; or offer input with an informed individual who is unaffiliated with the specific research protocol. Please visit http://go.hawaii.edu/jRd for more information on your rights as a research participant.</p>
+
+                <h4 class="mt-4">Key Information</h4>
+                <p>Provided is a short summary of this study to help you decide whether you want to participate. More detailed information is listed later in this form.</p>
+
+                <h4 class="mt-4">Purpose of the Research</h4>
+                <p>Over 8.5 million individuals worldwide are estimated to be affected by Parkinson’s Disease, and it is the second most common neurodegenerative disease in individuals over 60, after Alzheimer’s. This research project aims to test whether Parkinson’s disease (PD) can be diagnosed by looking at differences in typing rhythm and mouse movements between  PD-diagnosed compared to healthy individuals. We are asking you to take a simple online test, and we will use the data collected to train artificial intelligence to distinguish individuals with PD.</p>
+
+                <h4 class="mt-4">Study Procedure</h4>
+                <p>You will be asked to open a website using a specific site link, and complete a few tests using a mouse and keyboard. We will record your hand movements using a keyboard and/or a mouse.</p>
+
+                <h4 class="mt-4">Duration of Participation</h4>
+                <p>Your participation in the study is expected to take about 10 minutes, and it can be done in your own home at a time convenient for you.</p>
+
+                <h4 class="mt-4">Risks and Discomforts</h4>
+                <p>There are no foreseeable risks or discomforts involved in the participation of this study.</p>
+
+                <h4 class="mt-4">Benefits to Participants</h4>
+                <p>While direct benefits to you are limited, your involvement will contribute to the creation of more convenient methods for Parkinson’s disease diagnosis and symptom monitoring, which will improve quality of life for future PD patients.</p>
+
+                <h4 class="mt-4">Voluntary Participation</h4>
+                <p>Your participation in this research is voluntary. You have the right to withdraw from the study at any time without penalty or loss of benefits.</p>
+
+                <h4 class="mt-4">Criteria for Participation</h4>
+                <p>Participants in the Non-Parkinson’s disease group must be above 50 years of age. Participants in the Parkinson’s disease group must have proof of diagnosis and be above 50 years of age.</p>
+
+                <h4 class="mt-4">Data Sharing</h4>
+                <p>Minimal data will be recorded and shared from this study, including only age, gender, and test data.</p>
+
+                <h4>Taking part is voluntary</h4>
+                <p>Taking part in this study is voluntary, and the participant may discontinue at any time with no penalty.</p>
+                
+                <h4>If you have questions</h4>
+                <p>The principal researcher conducting this study is Dr. Peter Washington, a professor at the University of Hawaiʻi. Zerin Tumpa, a PhD student, and Lydia Sollis, Master’s student, are also available to answer any questions. Please see contact information below for each researcher:</p>
+                <ul>
+                    <li>Lydia Sollis, <a href="mailto:lsollis@hawaii.edu">lsollis@hawaii.edu</a> or 808-743-2455</li>
+                    <li>Zerin Nasrin Tumpa, <a href="mailto:zntumpa@hawaii.edu">zntumpa@hawaii.edu</a></li>
+                    <li>Dr. Peter Washington at <a href="mailto:pyw@hawaii.edu">pyw@hawaii.edu</a></li>
+                </ul>
+                <p>You will be given a copy of this form to keep for your records. This consent form will be kept by the researcher for at least five years beyond the end of the study.</p>
+                <!-- Consent Form -->
+                <h3 class="mt-4">Statement of Consent</h3>
+                <form id="consentForm" class="form-container">
+                    <div class="form-group">
+                        <label for="participantName">Your Name</label>
+                        <input type="text" class="form-control" id="participantName" placeholder="Enter your name">
+                        <small class="form-text text-danger" id="nameError"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="participantSignature">Your Signature (Type in your name again)</label>
+                        <input type="text" class="form-control" id="participantSignature" placeholder="Sign here">
+                        <small class="form-text text-danger" id="signatureError"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="consentDate">Date</label>
+                        <input type="date" class="form-control" id="consentDate">
+                        <small class="form-text text-danger" id="dateError"></small>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox-container"> <!-- Add this wrapper -->
+                            <input class="form-check-input" type="checkbox" id="consentCheck">
+                            <label class="form-check-label" for="consentCheck">
+                                I have read the above information, and have received answers to any questions I asked. I consent to take part in the study.
+                            </label>
+                        </div>
+                        <small class="form-text text-danger" id="consentCheckError"></small>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Consent & Proceed</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- Firebase Integration -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+    
+    <!-- Custom JavaScript for form handling and Firebase -->
+    <script src="../js/consentcollector.js"></script>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2024 Hawaii Digital Health Lab</p>
+        </div>
+    </footer>
+</body>
+</html>
