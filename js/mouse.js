@@ -1,4 +1,5 @@
 // this file powers the mouse tests, also sends mouse data to the database
+
 const firebaseConfig = {
   apiKey: "AIzaSyAnlwmmb-Wc_xDpW1Vli0cEMm7hbPk_tR8",
   authDomain: "pd-website-test.firebaseapp.com",
@@ -38,6 +39,7 @@ var mousepos = [0,0];
 function senddata() {
   // Extract user ID from the URL
 let userid = sessionStorage.getItem('userid');
+let docid = sessionStorage.getItem('docid');
 
 
   // Prepare data to be sent
@@ -52,7 +54,7 @@ let userid = sessionStorage.getItem('userid');
 
   // Send data to Firestore
 // Send data to Firestore
-db.collection("testData").doc(userid).set(data, { merge: true })
+db.collection("testData").doc(docid).set(data, { merge: true })
   .then(() => {
       console.log("Document updated for User ID: ", userid);
       // Redirect to the keyboard test after successful data submission
@@ -318,7 +320,7 @@ wid = window.innerHeight/12;
   ctx.fillStyle = 'black';
 
   ctx.fillText("Start", window.innerWidth/2+50, 2*window.innerHeight/3-10); 
-  ctx.fillText("Finish", window.innerWidth/2+window.innerHeight/2-10, 2*window.innerHeight/3+170); 
+  ctx.fillText("Finish", window.innerWidth/2+window.innerHeight/2-10, 2*window.innerHeight/3+140); 
 
 
 
@@ -485,10 +487,11 @@ function endGame() {
 
 // Function to send game data to Firebase
 function sendGameData() {
-  let userid = sessionStorage.getItem('userid');
+let userid = sessionStorage.getItem('userid');
+let docid = sessionStorage.getItem('docid');
   let data = { user: userid, gameData };
 
-  db.collection("testData").doc(userid).set({ gameData: data }, { merge: true })
+  db.collection("testData").doc(docid).set({ gameData: data }, { merge: true })
     .then(() => {
       console.log("Game data sent for User ID: ", userid);
     })

@@ -21,10 +21,6 @@ var pDominantTimestamps = [];
 var qDominantTimestamps = [];
 var pNonDominantTimestamps = [];
 var qNonDominantTimestamps = [];
-
-
-
-
 var currentround = 0;
 
 // average function
@@ -80,9 +76,35 @@ function stringize(e){
 // send data to the database
 // send data to the database
 function senddata() {
-  // Extract user ID from the URL
-let userid = sessionStorage.getItem('userid');
-console.log("data sent");
+  let userid = sessionStorage.getItem('userid');
+  let docid = sessionStorage.getItem('docid');
+  // Prepare data to be sent
+  let data = {
+    user: userid,
+    timestamps: {
+      round1: timestamps[0],
+      round2: timestamps[1],
+      round3: timestamps[2]
+    },
+    keyPresses: {
+      round1: kpressed[0],
+      round2: kpressed[1],
+      round3: kpressed[2]
+    },
+    expectedKeys: {
+      round1: kexpected[0],
+      round2: kexpected[1],
+      round3: kexpected[2]
+    },
+    falseClicks: falseclick,
+    rightClicks: rightclicks,
+    wrongClicks: wrongclicks,
+    pDominantTimes: stringize(pDominantTimestamps),
+    qDominantTimes: stringize(qDominantTimestamps),
+    pNonDominantTimes: stringize(pNonDominantTimestamps),
+    qNonDominantTimes: stringize(qNonDominantTimestamps)
+  };
+
 
 }
 
@@ -184,7 +206,7 @@ var  rounds  = 3;
 
   // Display average times
   dispstats2();
-  updateProgressBar(8,8);
+  updateProgressBar(8,9);
   // Prepare and send data
   document.getElementById('navbarTextContent').textContent = "Sending data...";
   senddata();
@@ -196,7 +218,7 @@ var  rounds  = 3;
   
   // level 1
   document.getElementById('navbarTextContent').textContent = "Press any key to proceed to Start the Keyboard Test";
-  updateProgressBar(4,8);
+  updateProgressBar(4,9);
   // wait until user presses a key
   squareactive = true;
   while (!pressedit){
@@ -253,7 +275,7 @@ var  rounds  = 3;
 
   // display stats and messagewhen they are done with the level
   dispstats(0);
-  updateProgressBar(5,8);
+  updateProgressBar(5,9);
   document.getElementById('navbarTextContent').textContent = "Press any key to proceed to level 2";
 
   // wait until the user presses any key to continue
@@ -335,7 +357,7 @@ var  rounds  = 3;
 
   // display the stats from the second round
   dispstats(1);
-  updateProgressBar(6,8);
+  updateProgressBar(6,9);
   // update text display
   document.getElementById('navbarTextContent').textContent = "Press any key to proceed to level 3";
 
@@ -412,7 +434,7 @@ var  rounds  = 3;
   
   // display stats for the last round 
   dispstats(2);
-  updateProgressBar(7,8);
+  updateProgressBar(7,9);
   document.getElementById('navbarTextContent').textContent = "Press any key to proceed to level 4";
 
   // wait until the user presses any key to continue

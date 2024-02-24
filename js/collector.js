@@ -150,41 +150,51 @@ function getSelectedOptions(selectId) {
 
 //senddata function to include the dominant hand
 async function senddata(medications, therapies) {
-  let userid = new Date().getTime().toString();
-  sessionStorage.setItem('userid', userid);
-  theid = userid;
+  // Assuming 'userid' is already defined and retrieved from sessionStorage
   let deviceType = detectDeviceType(); 
   let medicationTiming = document.getElementById('medicationTiming').value;
   let isNA = document.getElementById('naCheckbox').checked;
-
+  
+  // Generate a new document ID
+  const docid = firebase.firestore().collection('testData').doc().id;
+  
+  // Store the docid in sessionStorage for later use
+  sessionStorage.setItem('docid', docid);
+  let userid = sessionStorage.getItem('userid');
+  
   let data = {
     user: userid,
     age: document.getElementById('age').value,
     Participant_height: document.getElementById('height').value,
     gender: document.getElementById('gender').value,
     race: document.getElementById('race').value,
-    medications: medications, // Use the medications parameter
-    therapies: therapies,     // Use the therapies parameter
+    medications: medications,
+    therapies: therapies,
     medicationTiming: isNA ? "N/A" : medicationTiming,
     status: pd_status,
     deviceType: deviceType,
     dominantHand: dominantHand
   };
+
   console.log('Sending data to Firestore', data);
-  db.collection("testData").doc(userid).set(data, { merge: true })
+  db.collection("testData").doc(docid).set(data, { merge: true })
       .then(() => {
           console.log("Document successfully updated");
       })
       .catch((error) => {
           console.error("Error updating document:", error);
       });
-  
 }
+
 
 
 // redirect user to the mouse test after they verify data
 async function commencetests() {
   console.log("Commence Tests is called");
+
+  // Retrieve the userid and docid from sessionStorage
+  let userid = sessionStorage.getItem('userid');
+  let docid = sessionStorage.getItem('docid');
 
   let selectedMedications = $('#medications').val() || [];
   let selectedTherapies = $('#therapies').val() || [];
@@ -193,6 +203,8 @@ async function commencetests() {
   console.log("Selected Therapies: ", selectedTherapies);
 
   document.getElementById('ttrs').textContent = "Launching...";
-  window.open('../src/mouse.html?' + theid, '_self');
+  // Use template literals correctly to pass userid and docid in the URL
+  window.location.href = `../src/mouse.html?userid=${userid}&docid=${docid}`;
 }
+
 

@@ -148,8 +148,14 @@
                         <input type="text" class="form-control" id="participantSignature" placeholder="Sign here">
                         <small class="form-text text-danger" id="signatureError"></small>
                     </div>
+                    <!-- New Email Address Input -->
                     <div class="form-group">
-                        <label for="consentDate">Date</label>
+                        <label for="participantEmail">Your Email Address</label>
+                        <input type="email" class="form-control" id="participantEmail" placeholder="Enter your email">
+                        <small class="form-text text-danger" id="emailError"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="consentDate">Today's Date</label>
                         <input type="date" class="form-control" id="consentDate">
                         <small class="form-text text-danger" id="dateError"></small>
                     </div>
@@ -162,14 +168,26 @@
                         </div>
                         <small class="form-text text-danger" id="consentCheckError"></small>
                     </div>
-                    
+                    <!-- New Checkbox for Extended Interview Consent -->
+                    <div class="form-group">
+                        <div class="checkbox-container">
+                            <input class="form-check-input" type="checkbox" id="extendedInterviewConsent">
+                            <label class="form-check-label" for="extendedInterviewConsent">
+                                Please check this option if you are willing to participate in around a 1-hour long interview about the website and data collection (includes Compensation).
+                            </label>
+                        </div>
+                        <small class="form-text text-danger" id="extendedInterviewConsentError"></small>
+                    </div>
                     <button type="submit" class="btn btn-primary">Consent & Proceed</button>
                 </form>
-                
+
             </div>
         </div>
     </div>
-
+    <br>
+    <br>
+    <br>
+    <br>
     <!-- Bootstrap JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
@@ -182,7 +200,7 @@
     <!-- Custom JavaScript for form handling and Firebase -->
     <script src="../js/consentcollector.js"></script>
 
-    <footer class="footer">
+    <footer class="footer fixed-bottom d-none d-sm-block">
         <div class="container text-center">
             <p>&copy; 2024 Hawaii Digital Health Lab</p>
         </div>

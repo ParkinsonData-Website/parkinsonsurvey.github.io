@@ -55,14 +55,17 @@
     </div>
     <script>
       document.getElementById('retakeSame').addEventListener('click', function() {
-          // Redirect to the test start page without clearing localStorage
-          window.location.href = '../src/collectinfo.html';
+          // Retain userId but reset docId for the same person
+          let userId = sessionStorage.getItem('userId'); // Keep the same userId
+          sessionStorage.removeItem('docId'); // Remove the existing docId
+          window.location.href = '../src/collectinfo.html'; // Redirect to start the survey again
       });
-      
+
       document.getElementById('retakeNew').addEventListener('click', function() {
-          // Clear localStorage and redirect to the test start page
-          localStorage.removeItem('pdcompleted');
-          window.location.href = '../src/collectinfo.html';
+          // Reset both userId and docId for a different person
+          sessionStorage.removeItem('userid'); // Remove the existing userId
+          sessionStorage.removeItem('docid'); // Remove the existing docId
+          window.location.href = '../src/consent.html'; // Redirect to start a new survey
       });
       </script>
       <br>
