@@ -1,4 +1,5 @@
 // this file runs the keyboard test
+
 const firebaseConfig = {
   apiKey: "AIzaSyAnlwmmb-Wc_xDpW1Vli0cEMm7hbPk_tR8",
   authDomain: "pd-website-test.firebaseapp.com",
@@ -32,9 +33,6 @@ var pDominantTimestamps = [];
 var qDominantTimestamps = [];
 var pNonDominantTimestamps = [];
 var qNonDominantTimestamps = [];
-
-
-
 var currentround = 0;
 
 // average function
@@ -90,10 +88,8 @@ function stringize(e){
 // send data to the database
 // send data to the database
 function senddata() {
-  // Extract user ID from the URL
-let userid = sessionStorage.getItem('userid');
-
-
+  let userid = sessionStorage.getItem('userid');
+  let docid = sessionStorage.getItem('docid');
   // Prepare data to be sent
   let data = {
     user: userid,
@@ -122,7 +118,7 @@ let userid = sessionStorage.getItem('userid');
   };
 
   // Send data to Firestore
-  db.collection("testData").doc(userid).set(data, { merge: true })
+  db.collection("testData").doc(docid).set(data, { merge: true })
   .then(() => {
       console.log("Document updated for User ID: ", userid);
       // Update display with a thank you message

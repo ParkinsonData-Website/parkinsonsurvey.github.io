@@ -15,18 +15,19 @@
 <body>
   <div id="instruction-overlay">
     <div id="instruction-content">
-      <h2>Instructions</h2>
-      <p>This is the first section of the survey and contains a mouse test which comprises of 4 levels.</p>
-      <img src="../assets/mousetest.gif" alt="Instructions Image" class="img-fluid" width="130%">
-      <ul>
-        <li>For Level 1, 2, and 3, you have to move your mouse towards a rightward direction following the shapes on the screen.</li>
-        <li>For Level 4, you will need to click on Red dots as they appear on different parts of the screen</li>
-      </ul>
-      <button class="btn btn-primary" onclick="document.getElementById('instruction-overlay').style.display='none'">Start</button>
-  </div>
+        <h2>Instructions</h2>
+        <p>This is the first section of the survey and contains a mouse test which comprises of 4 levels.</p>
+        <img src="../assets/mousetest.gif" alt="Instructions Image" class="img-fluid" width="130%">
+        <ul>
+          <li>For Level 1, 2, and 3, you have to move your mouse towards a rightward direction following the shapes on the screen.</li>
+          <li>For Level 4, you will need to click on Red dots as they appear on different parts of the screen</li>
+        </ul>
+        <button class="btn btn-primary" onclick="document.getElementById('instruction-overlay').style.display='none'">Start</button>
+    </div>
 </div>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+    <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #13512f !important">
     <div class="container-fluid justify-content-center">
       <img src="../assets/logo.png" alt="Logo" style="height: 70px; margin-right: 10px;">
       <span class="nav-item nav-link h1 text-white" id="navbarTextContent">Mouse Test 1: Hover your mouse over the line in a rightwards direction</span>
@@ -47,7 +48,9 @@
         <p>This browser does not support canvas! Try using another browser</p>
         <canvas id="the-canvas" style="position:relative; right:300px;"></canvas>
       </canvas>
-    </div>  
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>  
     <script src="../js_practice/mouse.js"></script>
     <div class="progress fixed-bottom" style="height: 40px;">
       <div class="progress-bar" role="progressbar" style="width: 0%;" id="progressBar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">

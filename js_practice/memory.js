@@ -1,30 +1,17 @@
-// Firebase Configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyAnlwmmb-Wc_xDpW1Vli0cEMm7hbPk_tR8",
-    authDomain: "pd-website-test.firebaseapp.com",
-    projectId: "pd-website-test",
-    storageBucket: "pd-website-test.appspot.com",
-    messagingSenderId: "497582545475",
-    appId: "1:497582545475:web:aaf3986c35bf5ba414d2f6"
-};
 
-firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore();
 
 document.addEventListener('DOMContentLoaded', function() {
     const canvas = document.getElementById('memoryCanvas');
     const ctx = canvas.getContext('2d');
     const navbarTextContent = document.getElementById('navbarTextContent');
+    navbarTextContent.style.color = "white"; // Ensure the navbar text appears in white initially
 
-    // Initial canvas size set here
     let initialWindowWidth = window.innerWidth;
     let initialWindowHeight = window.innerHeight - 100;
     canvas.width = initialWindowWidth;
     canvas.height = initialWindowHeight;
 
-    // Removed window resize listener to keep canvas size fixed
-
-    updateNavbar("Memorize the Locations of the Numbers Below", "white");
+    let allowClicks = false; // Variable to control when canvas accepts clicks
     let boxes = [];
     const boxSize = 100;
     const numBoxes = 6;
@@ -35,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let startTime;
     let times = [];
     let totalNumbersAsked = 0;
-
+    let answerChecked = false;
     const marginBottom = 80;
 
     function updateProgressBar(currentLevel, totalLevels) {
@@ -81,34 +68,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayQuestionText(text) {
-        const fixedTextBoxWidth = 250; // Fixed width for the text box
-        let fontSize = 25; // Initial font size
+        const fixedTextBoxWidth = 250;
+        let fontSize = 25;
         ctx.font = `bold ${fontSize}px Arial`;
         let textWidth = ctx.measureText(text).width;
-    
-        // Adjust font size if the text width exceeds the fixed text box width
+
         while (textWidth > fixedTextBoxWidth && fontSize > 10) {
-            fontSize -= 1; // Decrease font size
-            ctx.font = `bold ${fontSize}px Arial`; // Update font size in context
-            textWidth = ctx.measureText(text).width; // Recalculate text width
+            fontSize -= 1;
+            ctx.font = `bold ${fontSize}px Arial`;
+            textWidth = ctx.measureText(text).width;
         }
-    
+
         let padding = 0;
-        let textHeight = fontSize + 10 * 2; // Text height + padding
+        let textHeight = fontSize + padding * 2; 
         let centerYPosition = (canvas.height / 2) - (textHeight / 2);
-    
-        // Calculate x position to center the text box within the canvas
+
         let centerXPosition = (canvas.width / 2) - (fixedTextBoxWidth / 2);
-    
-        ctx.fillStyle = '#ffffff';
-        // Draw the background rectangle for the text, ensuring it's centered
+
+        // Remove background fill for transparency and change text color to white
+        ctx.fillStyle = 'rgba(255, 255, 255, 0)'; // Transparent background
         ctx.fillRect(centerXPosition - padding, centerYPosition, fixedTextBoxWidth + (padding * 2), textHeight);
-        ctx.fillStyle = '#000';
+        ctx.fillStyle = '#000000'; // White text
         ctx.textAlign = 'center';
-        // Draw the text in the center
         ctx.fillText(text, canvas.width / 2, centerYPosition + (textHeight / 2) - 5);
     }
-    
+
     function updateNavbar(message, color) {
         navbarTextContent.textContent = message;
         navbarTextContent.style.color = color;
@@ -141,31 +125,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function clearNumbersAndAsk() {
         boxes.forEach(box => drawBox(box.x, box.y));
-    
+        answerChecked = false;
+        allowClicks = false; // Ensure clicks are not allowed until the right moment
+
         if (totalNumbersAsked < numBoxes) {
-            currentNumberToFind = totalNumbersAsked + 1; // This sets up the next number to find
+            currentNumberToFind = totalNumbersAsked + 1;
             setTimeout(() => {
                 displayQuestionText(`Where was ${currentNumberToFind}? Click on the box.`);
                 startTime = new Date().getTime();
-            }, 1000); 
-            // Removed totalNumbersAsked++ from here
+                allowClicks = true; // Now allow clicks since question is displayed
+            }, 1000);
         } else {
             updateProgressBar(9, 9);
             sendResultsToFirebase();
         }
     }
-    
 
     function checkAnswer(x, y) {
+        if (!allowClicks || answerChecked) return;
+
         const clickedBox = boxes.find(box => 
             x >= box.x - boxSize / 2 && x <= box.x + boxSize / 2 &&
             y >= box.y - boxSize / 2 && y <= box.y + boxSize / 2
         );
-    
+
         if (clickedBox) {
+            answerChecked = true;
             let endTime = new Date().getTime();
             times.push(endTime - startTime);
-    
+
             if (clickedBox.number === currentNumberToFind) {
                 correctClicks++;
                 drawBox(clickedBox.x, clickedBox.y, clickedBox.number.toString(), 'correct');
@@ -175,12 +163,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 drawBox(clickedBox.x, clickedBox.y, clickedBox.number.toString(), 'wrong');
                 updateNavbar("Incorrect. Moving on...", "red");
             }
-    
+
             setTimeout(() => updateNavbar("Memorize the Locations of the Numbers Below", "white"), 3000);
-    
-            totalNumbersAsked++; // Keep this increment
-            console.log(`Total numbers asked: ${totalNumbersAsked}, Num boxes: ${numBoxes}`);
-    
+
+            totalNumbersAsked++;
             if (totalNumbersAsked < numBoxes) {
                 setTimeout(() => {
                     displayBoxes();
@@ -191,16 +177,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    
 
     function sendResultsToFirebase() {
+        let userid = sessionStorage.getItem('userid');
+        let docid = sessionStorage.getItem('docid');
+        let testResults = {
+            correctboxClicks: correctClicks,
+            wrongboxClicks: wrongClicks,
+            boxclicktimes: times,
+        };
             updateNavbar("Results sent. Redirecting...", "white");
             setTimeout(() => {
                 window.location.href = '../src_practice/complete.html';
             }, 2000);
+
     }
 
     canvas.addEventListener('click', function(event) {
+        if (!allowClicks) return; // Ignore clicks if not allowed
         const rect = canvas.getBoundingClientRect();
         const clickX = event.clientX - rect.left;
         const clickY = event.clientY - rect.top;
