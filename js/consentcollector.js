@@ -34,7 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var participantSignature = document.getElementById('participantSignature').value.trim();
         var consentDate = document.getElementById('consentDate').value;
         var consentCheck = document.getElementById('consentCheck').checked;
-        var participantEmail = document.getElementById('participantEmail').value.trim(); // Email field
+        var participantEmail = document.getElementById('participantEmail').value.trim(); 
+        var participantMobile = document.getElementById('participantMobile').value.trim();
         var extendedInterviewConsent = document.getElementById('extendedInterviewConsent').checked; // New checkbox field
 
         // Validation checks
@@ -54,20 +55,20 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('consentCheckError').textContent = 'You must agree before submitting';
             isValid = false;
         }
-        if (!participantEmail) {
-            document.getElementById('emailError').textContent = 'This field is required';
-            isValid = false;
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(participantEmail)) {
+        if (participantEmail &&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(participantEmail)) {
             document.getElementById('emailError').textContent = 'Please enter a valid email address';
             isValid = false;
         }
-
+        if (participantMobile && !/^\d{10,15}$/.test(participantMobile)) {
+            document.getElementById('mobileError').textContent = 'Please enter a valid mobile number';
+            isValid = false;
+        }
         if (!isValid) {
             return; // Stop the form submission if validation fails
         }
 
         // Proceed with storing consent information in Firebase if validation passes
-        storeConsent(participantName, participantSignature, consentDate, consentCheck, participantEmail, extendedInterviewConsent);
+        storeConsent(participantName, participantSignature, consentDate, consentCheck, participantEmail, extendedInterviewConsent, participantMobile);
     });
 
     // Function to clear error messages
@@ -77,11 +78,12 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('dateError').textContent = '';
         document.getElementById('consentCheckError').textContent = '';
         document.getElementById('emailError').textContent = '';
+        document.getElementById('mobileError').textContent = '';
         // No need to clear extendedInterviewConsentError as it's not a required field
     }
 
     // Function to store consent in Firebase
-    function storeConsent(name, signature, date, consentGiven, email, interviewConsent) {
+    function storeConsent(name, signature, date, consentGiven, email, interviewConsent, mobile) { // Add mobile parameter here
         let userid = sessionStorage.getItem('userid');
         if (!userid) {
             userid = Date.now().toString(); // Use current timestamp as unique ID
@@ -93,8 +95,9 @@ document.addEventListener('DOMContentLoaded', function() {
             signature: signature,
             date: date,
             consentGiven: consentGiven,
-            email: email, // Store email
-            extendedInterviewConsent: interviewConsent // Store extended interview consent
+            email: email, // Email is now optional
+            extendedInterviewConsent: interviewConsent,
+            mobile: mobile // Make sure mobile is included here
         })
         .then(() => {
             console.log("Document successfully updated");
@@ -104,4 +107,5 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Error updating document:", error);
         });
     }
+    
 });
