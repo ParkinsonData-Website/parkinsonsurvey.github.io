@@ -1,6 +1,3 @@
-// this file powers the data collector for demographics, and send the data to the database
-
-
 // store pd status
 let pd_status = "";
 // assign the user an id based on timestamp
@@ -22,22 +19,22 @@ function detectDeviceType() {
   var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
   if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-      return 'iOS Device';
+    return 'iOS Device';
   }
   if (/android/i.test(userAgent)) {
-      return 'Android Device';
+    return 'Android Device';
   }
   if (/windows phone/i.test(userAgent)) {
-      return 'Windows Phone';
+    return 'Windows Phone';
   }
   if (/Macintosh|MacIntel|MacPPC|Mac68K/.test(userAgent)) {
-      return 'Mac Desktop';
+    return 'Mac Desktop';
   }
   if (/Win32|Win64|Windows|WinCE/.test(userAgent)) {
-      return 'Windows Desktop';
+    return 'Windows Desktop';
   }
   if (/Linux/.test(userAgent)) {
-      return 'Linux Desktop';
+    return 'Linux Desktop';
   }
   return 'Desktop'; // Default to desktop if no match
 }
@@ -56,16 +53,13 @@ function storestatus(status) {
 
   // Add the 'btn-success' class to the clicked button
   if (status === 'pd') {
-      yesButton.classList.add('btn-success');
+    yesButton.classList.add('btn-success');
   } else if (status === 'suspectedpd') {
-      suspectedButton.classList.add('btn-success');
+    suspectedButton.classList.add('btn-success');
   } else if (status === 'nonpd') {
-      noButton.classList.add('btn-success');
+    noButton.classList.add('btn-success');
   }
 }
-
-
-
 
 // Global variable to store the dominant hand
 let dominantHand = "Right";
@@ -88,9 +82,8 @@ function storeHand(hand) {
   }
 }
 
-
 // when the user clicks start open verification window and save status
-function startverify(){
+function startverify() {
   document.body.classList.add('modal-open');
   let selectedMedications = $('#medications').val() || [];
   let selectedTherapies = $('#therapies').val() || [];
@@ -102,18 +95,24 @@ function startverify(){
   blocker.style.opacity = 1;
   verify.style.display = 'block';
   $('.selectpicker').selectpicker('hide');
+
   let medicationTiming = document.getElementById('medicationTiming').value;
   let isNA = document.getElementById('naCheckbox').checked;
   let timingText = isNA ? "N/A" : medicationTiming + " hours ago";
 
+  let timeSinceDiagnosis = document.getElementById('timeSinceDiagnosis').value;
+  let diagnosisNA = document.getElementById('diagnosisNACheckbox').checked;
+  let diagnosisText = diagnosisNA ? "N/A" : timeSinceDiagnosis + " years";
+
   // display demographics on the verification dialogue
-  document.getElementById('aged').textContent = "Age: "+document.getElementById('age').value+" years old";
+  document.getElementById('aged').textContent = "Age: " + document.getElementById('age').value + " years old";
   document.getElementById('heightd').textContent = "Height: " + document.getElementById('height').value + " cm";
-  document.getElementById('gend').textContent = "Gender: "+document.getElementById('gender').value;
-  document.getElementById('raced').textContent = "Race: "+document.getElementById('race').value;
+  document.getElementById('gend').textContent = "Gender: " + document.getElementById('gender').value;
+  document.getElementById('raced').textContent = "Race: " + document.getElementById('race').value;
   document.getElementById('medicationsDisplay').textContent = "Medications: " + (selectedMedications ? selectedMedications.join(', ') : 'None');
   document.getElementById('therapiesDisplay').textContent = "Therapies: " + (selectedTherapies ? selectedTherapies.join(', ') : 'None');
   document.getElementById('medicationTimingDisplay').textContent = "Last Medication Timing: " + timingText;
+  document.getElementById('timeSinceDiagnosisDisplay').textContent = "Time Since Diagnosis: " + diagnosisText;
 
   // display pd status on the dialogue
   if (pd_status === 'pd') {
@@ -127,7 +126,7 @@ function startverify(){
 }
 
 // close the verification dialogue if user wants to change anything
-function closeverify(){
+function closeverify() {
   document.body.classList.remove('modal-open');
   let blocker = document.getElementById('blocker');
   let verify = document.getElementById('verify');
@@ -136,6 +135,7 @@ function closeverify(){
   verify.style.display = 'none';
   $('.selectpicker').selectpicker('show');
 }
+
 // Function to get selected options from a multi-select dropdown
 function getSelectedOptions(selectId) {
   let select = document.getElementById(selectId);
@@ -148,20 +148,22 @@ function getSelectedOptions(selectId) {
   return selected;
 }
 
-//senddata function to include the dominant hand
+// senddata function to include the dominant hand
 async function senddata(medications, therapies) {
   // Assuming 'userid' is already defined and retrieved from sessionStorage
-  let deviceType = detectDeviceType(); 
+  let deviceType = detectDeviceType();
   let medicationTiming = document.getElementById('medicationTiming').value;
   let isNA = document.getElementById('naCheckbox').checked;
-  
+  let timeSinceDiagnosis = document.getElementById('timeSinceDiagnosis').value;
+  let diagnosisNA = document.getElementById('diagnosisNACheckbox').checked;
+
   // Generate a new document ID
   const docid = firebase.firestore().collection('testData').doc().id;
-  
+
   // Store the docid in sessionStorage for later use
   sessionStorage.setItem('docid', docid);
   let userid = sessionStorage.getItem('userid');
-  
+
   let data = {
     user: userid,
     age: document.getElementById('age').value,
@@ -171,6 +173,7 @@ async function senddata(medications, therapies) {
     medications: medications,
     therapies: therapies,
     medicationTiming: isNA ? "N/A" : medicationTiming,
+    timeSinceDiagnosis: diagnosisNA ? "N/A" : timeSinceDiagnosis,
     status: pd_status,
     deviceType: deviceType,
     dominantHand: dominantHand
@@ -178,15 +181,13 @@ async function senddata(medications, therapies) {
 
   console.log('Sending data to Firestore', data);
   db.collection("testData").doc(docid).set(data, { merge: true })
-      .then(() => {
-          console.log("Document successfully updated");
-      })
-      .catch((error) => {
-          console.error("Error updating document:", error);
-      });
+    .then(() => {
+      console.log("Document successfully updated");
+    })
+    .catch((error) => {
+      console.error("Error updating document:", error);
+    });
 }
-
-
 
 // redirect user to the mouse test after they verify data
 async function commencetests() {
@@ -206,5 +207,3 @@ async function commencetests() {
   // Use template literals correctly to pass userid and docid in the URL
   window.location.href = `../src/mouse.html?userid=${userid}&docid=${docid}`;
 }
-
-

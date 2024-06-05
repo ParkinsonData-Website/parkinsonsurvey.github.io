@@ -153,7 +153,18 @@
           </div>
           <div class="text-danger" id="parkinsonsError"></div>
         </div>
-
+        <!-- Time Since Diagnosis -->
+        <div class="form-group">
+          <label class="question-label">How long ago were you diagnosed with Parkinson's (in years)?</label>
+          <input type="number" class="form-control" id="timeSinceDiagnosis" placeholder="Enter years" min="0">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="diagnosisNACheckbox">
+            <label class="form-check-label" for="diagnosisNACheckbox">
+              <h4>N/A</h4>
+            </label>
+          </div>
+          <div class="text-danger" id="timeSinceDiagnosisError"></div>
+        </div>
         <!-- Dominant Hand -->
         <div class="form-group">
           <label class="question-label">Which is your dominant hand?</label>
@@ -183,6 +194,7 @@
       <h2 id="therapiesDisplay">Therapies:</h2>
       <h2 id="medicationTimingDisplay">Last Medication Timing:</h2>
       <h2 id="pdd">Parkinson’s Status:</h2>
+      <h2 id="timeSinceDiagnosisDisplay">Time Since Diagnosis:</h2>
       <h2 id="dominantHandDisplay">Dominant Hand:</h2>
       <h2 id="heightd">Height:</h2>
 
@@ -204,6 +216,13 @@
   medicationTimingInput.disabled = this.checked;
   if (this.checked) {
     medicationTimingInput.value = '';
+  }
+});
+document.getElementById('diagnosisNACheckbox').addEventListener('change', function() {
+  let timeSinceDiagnosisInput = document.getElementById('timeSinceDiagnosis');
+  timeSinceDiagnosisInput.disabled = this.checked;
+  if (this.checked) {
+    timeSinceDiagnosisInput.value = '';
   }
 });
   $(document).ready(function() {
@@ -320,7 +339,13 @@ function validateForm() {
   } else {
     $('#parkinsonsError').text('');
   }
-
+  // Validate Time Since Diagnosis
+  if (!$('#diagnosisNACheckbox').is(':checked') && !$('#timeSinceDiagnosis').val().trim()) {
+    $('#timeSinceDiagnosisError').text('Please enter the time since diagnosis.');
+    isValid = false;
+  } else {
+    $('#timeSinceDiagnosisError').text('');
+  }
   // Validate Dominant Hand
   if ($('#dominantHand .active').length === 0) {
     $('#handError').text('Please select your dominant hand.');
