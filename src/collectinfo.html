@@ -142,7 +142,27 @@
           </div>
           <div class="text-danger" id="medicationTimingError"></div>
         </div>
-        
+        <!-- New Section: Neurological or Motor Condition -->
+        <div class="form-group">
+          <label class="question-label">Do you have any neurological or motor condition?</label>
+          <input type="text" class="form-control" id="neuroCondition" placeholder="Enter your condition">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="neuroConditionNA">
+            <label class="form-check-label" for="neuroConditionNA"><h4>N/A</h4></label>
+          </div>
+          <div class="text-danger" id="neuroConditionError"></div>
+        </div>
+
+        <!-- New Section: Other Health Conditions -->
+        <div class="form-group">
+          <label class="question-label">Do you have any other health condition you want to mention?</label>
+          <input type="text" class="form-control" id="otherHealthCondition" placeholder="Enter your condition">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="otherHealthConditionNA">
+            <label class="form-check-label" for="otherHealthConditionNA"><h4>N/A</h4></label>
+          </div>
+          <div class="text-danger" id="otherHealthConditionError"></div>
+        </div>
         <!-- Parkinson's Status -->
         <div class="form-group">
           <label class="question-label">Do you have Parkinsons?</label>
@@ -193,6 +213,8 @@
       <h2 id="medicationsDisplay">Medications:</h2>
       <h2 id="therapiesDisplay">Therapies:</h2>
       <h2 id="medicationTimingDisplay">Last Medication Timing:</h2>
+      <h2 id="neuroConditionDisplay">Neurological or Motor Condition:</h2>
+      <h2 id="otherHealthConditionDisplay">Other Health Condition:</h2>
       <h2 id="pdd">Parkinson’s Status:</h2>
       <h2 id="timeSinceDiagnosisDisplay">Time Since Diagnosis:</h2>
       <h2 id="dominantHandDisplay">Dominant Hand:</h2>
@@ -212,150 +234,180 @@
       $('.selectpicker').selectpicker();
     });
     document.getElementById('naCheckbox').addEventListener('change', function() {
-  let medicationTimingInput = document.getElementById('medicationTiming');
-  medicationTimingInput.disabled = this.checked;
-  if (this.checked) {
-    medicationTimingInput.value = '';
-  }
-});
-document.getElementById('diagnosisNACheckbox').addEventListener('change', function() {
-  let timeSinceDiagnosisInput = document.getElementById('timeSinceDiagnosis');
-  timeSinceDiagnosisInput.disabled = this.checked;
-  if (this.checked) {
-    timeSinceDiagnosisInput.value = '';
-  }
-});
-  $(document).ready(function() {
-    $('.selectpicker').selectpicker();
+      let medicationTimingInput = document.getElementById('medicationTiming');
+      medicationTimingInput.disabled = this.checked;
+      if (this.checked) {
+        medicationTimingInput.value = '';
+      }
+    });
+    document.getElementById('diagnosisNACheckbox').addEventListener('change', function() {
+      let timeSinceDiagnosisInput = document.getElementById('timeSinceDiagnosis');
+      timeSinceDiagnosisInput.disabled = this.checked;
+      if (this.checked) {
+        timeSinceDiagnosisInput.value = '';
+      }
+    });
+    document.getElementById('neuroConditionNA').addEventListener('change', function() {
+      let neuroConditionInput = document.getElementById('neuroCondition');
+      neuroConditionInput.disabled = this.checked;
+      if (this.checked) {
+        neuroConditionInput.value = '';
+      }
+    });
+    document.getElementById('otherHealthConditionNA').addEventListener('change', function() {
+      let otherHealthConditionInput = document.getElementById('otherHealthCondition');
+      otherHealthConditionInput.disabled = this.checked;
+      if (this.checked) {
+        otherHealthConditionInput.value = '';
+      }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      $('.selectpicker').selectpicker();
 
-    function handleDropdownChange(dropdownId) {
-      let selectedOptions = $(`#${dropdownId}`).val();
-      if (selectedOptions && selectedOptions.includes('N/A')) {
-        // If N/A is selected along with other options, remove N/A
-        if (selectedOptions.length > 1) {
-          $(`#${dropdownId}`).selectpicker('val', selectedOptions.filter(option => option !== 'N/A'));
+      function handleDropdownChange(dropdownId) {
+        let selectedOptions = $(`#${dropdownId}`).val();
+        if (selectedOptions && selectedOptions.includes('N/A')) {
+          // If N/A is selected along with other options, remove N/A
+          if (selectedOptions.length > 1) {
+            $(`#${dropdownId}`).selectpicker('val', selectedOptions.filter(option => option !== 'N/A'));
+          }
         }
       }
+
+      // Event listener for Medications dropdown
+      $('#medications').on('changed.bs.select', function() {
+        handleDropdownChange('medications');
+      });
+
+      // Event listener for Therapies dropdown
+      $('#therapies').on('changed.bs.select', function() {
+        handleDropdownChange('therapies');
+      });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize selectpicker
+      $('.selectpicker').selectpicker();
+
+      // Form submission handler
+      document.getElementById('submitForm').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent form submission
+        if (validateForm()) {
+          console.log('Form is valid');
+          startverify();
+        }
+      });
+
+      // Button group selection for Parkinson's and Dominant Hand
+      document.querySelectorAll('.button-group button').forEach(function(button) {
+        button.addEventListener('click', function() {
+          let group = this.parentElement.id;
+          document.querySelectorAll('#' + group + ' button').forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          // Clear error message
+          document.getElementById(group + 'Error').textContent = '';
+        });
+      });
+    });
+
+    function validateForm() {
+      let isValid = true;
+
+      // Validate Age
+      if (!$('#age').val().trim()) {
+        $('#ageError').text('Please enter your age.');
+        isValid = false;
+      } else {
+        $('#ageError').text('');
+      }
+
+      // Validate Height
+      if (!$('#height').val().trim()) {
+        $('#heightError').text('Please enter your height.');
+        isValid = false;
+      } else {
+        $('#heightError').text('');
+      }
+
+      // Validate Gender
+      if ($('#gender').val() === '') {
+        $('#genderError').text('Please select your gender.');
+        isValid = false;
+      } else {
+        $('#genderError').text('');
+      }
+
+      // Validate Race/Ethnicity
+      if ($('#race').val() === '') {
+        $('#raceError').text('Please select your race/ethnicity.');
+        isValid = false;
+      } else {
+        $('#raceError').text('');
+      }
+
+      // Validate Medications
+      if ($('#medications').val() === null || $('#medications').val().length === 0) {
+        $('#medicationsError').text('Please select your medications.');
+        isValid = false;
+      } else {
+        $('#medicationsError').text('');
+      }
+
+      // Validate Therapies
+      if ($('#therapies').val() === null || $('#therapies').val().length === 0) {
+        $('#therapiesError').text('Please select your therapies.');
+        isValid = false;
+      } else {
+        $('#therapiesError').text('');
+      }
+
+      // Validate Last Medication Timing
+      if (!$('#naCheckbox').is(':checked') && !$('#medicationTiming').val().trim()) {
+        $('#medicationTimingError').text('Please enter the last medication timing.');
+        isValid = false;
+      } else {
+        $('#medicationTimingError').text('');
+      }
+
+      // Validate Parkinson's Status
+      if ($('#parkinsonsStatus .active').length === 0) {
+        $('#parkinsonsError').text('Please select your Parkinson’s status.');
+        isValid = false;
+      } else {
+        $('#parkinsonsError').text('');
+      }
+      // Validate Time Since Diagnosis
+      if (!$('#diagnosisNACheckbox').is(':checked') && !$('#timeSinceDiagnosis').val().trim()) {
+        $('#timeSinceDiagnosisError').text('Please enter the time since diagnosis.');
+        isValid = false;
+      } else {
+        $('#timeSinceDiagnosisError').text('');
+      }
+      // Validate Dominant Hand
+      if ($('#dominantHand .active').length === 0) {
+        $('#handError').text('Please select your dominant hand.');
+        isValid = false;
+      } else {
+        $('#handError').text('');
+      }
+
+      // Validate Neurological or Motor Condition
+      if (!$('#neuroConditionNA').is(':checked') && !$('#neuroCondition').val().trim()) {
+        $('#neuroConditionError').text('Please enter your neurological or motor condition.');
+        isValid = false;
+      } else {
+        $('#neuroConditionError').text('');
+      }
+
+      // Validate Other Health Condition
+      if (!$('#otherHealthConditionNA').is(':checked') && !$('#otherHealthCondition').val().trim()) {
+        $('#otherHealthConditionError').text('Please enter your other health condition.');
+        isValid = false;
+      } else {
+        $('#otherHealthConditionError').text('');
+      }
+
+      return isValid;
     }
-
-    // Event listener for Medications dropdown
-    $('#medications').on('changed.bs.select', function() {
-      handleDropdownChange('medications');
-    });
-
-    // Event listener for Therapies dropdown
-    $('#therapies').on('changed.bs.select', function() {
-      handleDropdownChange('therapies');
-    });
-  });
-  document.addEventListener('DOMContentLoaded', function() {
-  // Initialize selectpicker
-  $('.selectpicker').selectpicker();
-
-  // Form submission handler
-  document.getElementById('submitForm').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent form submission
-    if (validateForm()) {
-      console.log('Form is valid');
-      startverify();
-    }
-  });
-
-  // Button group selection for Parkinson's and Dominant Hand
-  document.querySelectorAll('.button-group button').forEach(function(button) {
-    button.addEventListener('click', function() {
-      let group = this.parentElement.id;
-      document.querySelectorAll('#' + group + ' button').forEach(btn => btn.classList.remove('active'));
-      this.classList.add('active');
-      // Clear error message
-      document.getElementById(group + 'Error').textContent = '';
-    });
-  });
-});
-
-function validateForm() {
-  let isValid = true;
-
-  // Validate Age
-  if (!$('#age').val().trim()) {
-    $('#ageError').text('Please enter your age.');
-    isValid = false;
-  } else {
-    $('#ageError').text('');
-  }
-
-  // Validate Height
-  if (!$('#height').val().trim()) {
-    $('#heightError').text('Please enter your height.');
-    isValid = false;
-  } else {
-    $('#heightError').text('');
-  }
-
-  // Validate Gender
-  if ($('#gender').val() === '') {
-    $('#genderError').text('Please select your gender.');
-    isValid = false;
-  } else {
-    $('#genderError').text('');
-  }
-
-  // Validate Race/Ethnicity
-  if ($('#race').val() === '') {
-    $('#raceError').text('Please select your race/ethnicity.');
-    isValid = false;
-  } else {
-    $('#raceError').text('');
-  }
-
-  // Validate Medications
-  if ($('#medications').val() === null || $('#medications').val().length === 0) {
-    $('#medicationsError').text('Please select your medications.');
-    isValid = false;
-  } else {
-    $('#medicationsError').text('');
-  }
-
-  // Validate Therapies
-  if ($('#therapies').val() === null || $('#therapies').val().length === 0) {
-    $('#therapiesError').text('Please select your therapies.');
-    isValid = false;
-  } else {
-    $('#therapiesError').text('');
-  }
-
-  // Validate Last Medication Timing
-  if (!$('#naCheckbox').is(':checked') && !$('#medicationTiming').val().trim()) {
-    $('#medicationTimingError').text('Please enter the last medication timing.');
-    isValid = false;
-  } else {
-    $('#medicationTimingError').text('');
-  }
-
-  // Validate Parkinson's Status
-  if ($('#parkinsonsStatus .active').length === 0) {
-    $('#parkinsonsError').text('Please select your Parkinson’s status.');
-    isValid = false;
-  } else {
-    $('#parkinsonsError').text('');
-  }
-  // Validate Time Since Diagnosis
-  if (!$('#diagnosisNACheckbox').is(':checked') && !$('#timeSinceDiagnosis').val().trim()) {
-    $('#timeSinceDiagnosisError').text('Please enter the time since diagnosis.');
-    isValid = false;
-  } else {
-    $('#timeSinceDiagnosisError').text('');
-  }
-  // Validate Dominant Hand
-  if ($('#dominantHand .active').length === 0) {
-    $('#handError').text('Please select your dominant hand.');
-    isValid = false;
-  } else {
-    $('#handError').text('');
-  }
-
-  return isValid;
-}
   </script>
     <footer class="footer">
       <div class="container text-center">
