@@ -57,6 +57,16 @@ function startverify() {
   let diagnosisNA = document.getElementById('diagnosisNACheckbox').checked;
   let diagnosisText = diagnosisNA ? "N/A" : timeSinceDiagnosis + " years";
 
+  // Handle neurological or motor condition
+  let neuroCondition = document.getElementById('neuroCondition').value;
+  let neuroConditionNA = document.getElementById('neuroConditionNA').checked;
+  let neuroConditionText = neuroConditionNA ? "N/A" : neuroCondition;
+
+  // Handle other health condition
+  let otherHealthCondition = document.getElementById('otherHealthCondition').value;
+  let otherHealthConditionNA = document.getElementById('otherHealthConditionNA').checked;
+  let otherHealthConditionText = otherHealthConditionNA ? "N/A" : otherHealthCondition;
+
   // Display demographics on the verification dialogue
   document.getElementById('aged').textContent = "Age: " + document.getElementById('age').value + " years old";
   document.getElementById('heightd').textContent = "Height: " + document.getElementById('height').value + " cm";
@@ -66,6 +76,8 @@ function startverify() {
   document.getElementById('therapiesDisplay').textContent = "Therapies: " + (selectedTherapies.length ? selectedTherapies.join(', ') : 'None');
   document.getElementById('medicationTimingDisplay').textContent = "Last Medication Timing: " + timingText;
   document.getElementById('timeSinceDiagnosisDisplay').textContent = "Time Since Diagnosis: " + diagnosisText;
+  document.getElementById('neuroConditionDisplay').textContent = "Neurological or Motor Condition: " + neuroConditionText;
+  document.getElementById('otherHealthConditionDisplay').textContent = "Other Health Condition: " + otherHealthConditionText;
 
   // Display PD status on the dialogue
   if (pd_status === 'pd') {
@@ -138,6 +150,22 @@ document.addEventListener('DOMContentLoaded', function () {
     timeSinceDiagnosisInput.disabled = this.checked;
     if (this.checked) {
       timeSinceDiagnosisInput.value = '';
+    }
+  });
+
+  document.getElementById('neuroConditionNA').addEventListener('change', function () {
+    let neuroConditionInput = document.getElementById('neuroCondition');
+    neuroConditionInput.disabled = this.checked;
+    if (this.checked) {
+      neuroConditionInput.value = '';
+    }
+  });
+
+  document.getElementById('otherHealthConditionNA').addEventListener('change', function () {
+    let otherHealthConditionInput = document.getElementById('otherHealthCondition');
+    otherHealthConditionInput.disabled = this.checked;
+    if (this.checked) {
+      otherHealthConditionInput.value = '';
     }
   });
 });
@@ -223,6 +251,22 @@ function validateForm() {
     isValid = false;
   } else {
     $('#handError').text('');
+  }
+
+  // Validate Neurological or Motor Condition
+  if (!$('#neuroConditionNA').is(':checked') && !$('#neuroCondition').val().trim()) {
+    $('#neuroConditionError').text('Please enter your neurological or motor condition.');
+    isValid = false;
+  } else {
+    $('#neuroConditionError').text('');
+  }
+
+  // Validate Other Health Condition
+  if (!$('#otherHealthConditionNA').is(':checked') && !$('#otherHealthCondition').val().trim()) {
+    $('#otherHealthConditionError').text('Please enter your other health condition.');
+    isValid = false;
+  } else {
+    $('#otherHealthConditionError').text('');
   }
 
   return isValid;
